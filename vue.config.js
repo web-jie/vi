@@ -3,6 +3,8 @@ const configs = require('./md')
 
 module.exports = {
   lintOnSave: false,
+  assetsDir: 'static',
+  publicPath: './',
   chainWebpack: config => {
     config.entryPoints
       .get('app')
