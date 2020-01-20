@@ -19,7 +19,7 @@ export default {
   computed: {
     styleles () {
       return {
-        zIndex: 1000,
+        zIndex: 1000
       }
     },
     classes () {
@@ -62,22 +62,23 @@ export default {
       Velocity(el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 350, complete: done }, 'ease-out')
     },
     afterEnter (el) {
-      if (this.duration === 0 || this.isClose) return 
+      if (this.duration === 0 || this.isClose) return
       this.closeAnimation(el)
     },
 
     closeAnimation (el, duration = this.duration) {
       setTimeout(() => {
-        Velocity(el, { opacity: 0 }, { duration: 350, complete: () => {
-          this.removeChild()
-        }})
+        Velocity(el, { opacity: 0 }, { duration: 350,
+          complete: () => {
+            this.removeChild()
+          } })
       }, duration)
     },
-    animations() {
-      Velocity(this.$el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 100}, 'ease-out')
+    animations () {
+      Velocity(this.$el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 100 }, 'ease-out')
     },
     removeChild () {
-      this.$destroy(true);
+      this.$destroy(true)
       this.close(this.id)
     }
   }

@@ -15,7 +15,7 @@ const Message = (options) => {
   options.close = function (id) {
     Message.close(id)
   }
-  
+
   const component = new MyComponent({
     data: options
   })
@@ -26,7 +26,7 @@ const Message = (options) => {
   }
   component.$mount()
   document.getElementsByTagName('body')[0].appendChild(component.$el)
- 
+
   list.push(component)
   // console.log(component.$el.offsetHeight, 'dsds')
 }
@@ -34,7 +34,7 @@ Message.close = function (id) {
   const findIndex = list.findIndex(v => v.id === id)
   const removeEl = list[findIndex].$el
   const removeHeight = removeEl.offsetHeight
-  removeEl.parentNode.removeChild( removeEl)
+  removeEl.parentNode.removeChild(removeEl)
   if (list[findIndex].beforeClose) {
     list[findIndex].beforeClose(list[findIndex])
   }

@@ -9,6 +9,6 @@ export default {
     // 注册指令
     Vue.use(Directives)
     // 注册实例方法
-    Vue.use(Prototypes, {scope: options.scope})
+    Vue.use(Prototypes, { scope: options.scope })
   }
 }
