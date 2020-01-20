@@ -1,1 +1,0 @@
-<vi-loading></vi-loading>
