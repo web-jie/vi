@@ -1,0 +1,12 @@
+.#{$prefix}-message {
+  position: fixed;
+  padding: 20px;
+  border-radius: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: red;
+  top: 0;
+}
+.aa-enter-active {
+  transition: all 1s;
+}

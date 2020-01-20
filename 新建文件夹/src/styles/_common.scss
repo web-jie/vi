@@ -1,0 +1,74 @@
+@function getBasicColors($type) {
+  @if $type == primary {
+    @return $color-primary;
+  }
+  @else if $type == success {
+    @return $color-success;
+  }
+  @else if $type == info {
+    @return $color-info;
+  }
+  @else if $type == warning {
+    @return $color-warning;
+  }
+  @else if $type == danger {
+    @return $color-danger;
+  }
+  @else if $type == text {
+    @return $color-primary-text;
+  }
+};
+
+@function getHoverColors($type) {
+  @if $type == primary {
+    @return $color-hover-primary;
+  }
+  @else if $type == success {
+    @return $color-hover-success;
+  }
+  @else if $type == info {
+    @return $color-hover-info;
+  }
+  @else if $type == warning {
+    @return $color-hover-warning;
+  }
+  @else if $type == danger {
+    @return $color-hover-danger;
+  }
+};
+
+@function getActiveColors($type) {
+  @if $type == primary {
+    @return $color-active-primary;
+  }
+  @else if $type == success {
+    @return $color-active-success;
+  }
+  @else if $type == info {
+    @return $color-active-info;
+  }
+  @else if $type == warning {
+    @return $color-active-warning;
+  }
+  @else if $type == danger {
+    @return $color-active-danger;
+  }
+};
+
+@function getDisabledColors($type) {
+  @if $type == primary {
+    @return $color-disabled-primary;
+  }
+  @else if $type == success {
+    @return $color-disabled-success;
+  }
+  @else if $type == info {
+    @return $color-disabled-info;
+  }
+  @else if $type == warning {
+    @return $color-disabled-warning;
+  }
+  @else if $type == danger {
+    @return $color-disabled-danger;
+  }
+};

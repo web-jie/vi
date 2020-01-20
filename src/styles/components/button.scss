@@ -1,0 +1,161 @@
+
+
+@mixin bcolor ($type, $color: $color-white) {
+  background-color: getBasicColors($type);
+  color: $color;
+  transition: .1S;
+  border-color: getBasicColors($type);
+  &.is-active:hover {
+    background-color: getHoverColors($type);
+    border-color: getHoverColors($type);
+    color: $color-white;
+  }
+  &.is-active:active {
+    background-color: getActiveColors($type);
+    border-color: getActiveColors($type)
+  }
+  &.vi-button_plain {
+    color: getBasicColors($type);
+    background-color: $color-white;
+    &.is-active:hover {
+      background-color:  getHoverColors($type);
+      color: $color-white;
+    }
+    &.is-active:active {
+      background-color: getActiveColors($type);
+      border-color: getActiveColors($type);
+    }
+  }
+  
+}
+
+.#{$prefix}-button {
+  display: inline-block;
+  outline: none;
+  background-image: none;
+  background-color: $color-white;
+  color: $color-primary-text;
+  cursor: pointer;
+  transition: all .2s;
+  padding: $fs-8 $fs-14;
+  border: none;
+  font-size: $fs-14;
+  margin: 0 8px 0 0;
+  border: 1px solid $color-primary-bd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  line-height: 1;
+  user-select: none;
+  &.is-active:hover {
+    color: $color-primary;
+    border-color: $color-primary;
+    opacity: .8;
+  }
+  &.is-active:active {
+    opacity: 1;
+    color: $color-active-primary;
+    border-color: $color-active-primary;
+  }
+  // &_default {
+  //   &.is-active:hover {
+      
+      
+  //     
+  //   }
+  //   &.is-active:active {
+  //     color: $color-active-primary;
+  //     border-color: $color-active-primary;
+  //   }
+  //   &.vi-button_plain {
+  //     background-color: $color-white;
+  //   }
+  // }
+  
+  &_round {
+    border-radius: $fs-16;
+  }
+  &_primary {
+    @include bcolor(primary);
+  }
+  &_success {
+    @include bcolor(success)
+  }
+  &_info {
+    @include bcolor(info)
+  }
+  &_warning {
+    @include bcolor(warning)
+  }
+  &_danger {
+    @include bcolor(danger)
+  }
+  &_text {
+    background-color: transparent;
+    border-color: transparent;
+    color: getBasicColors(primary);
+    padding-left: 5px;
+    padding-right: 5px;
+    &.is-active:hover {
+      color: $color-hover-primary;
+    }
+    &.is-active:active {
+      color: $color-active-primary;
+    }
+    &.vi-button_disabled {
+      color: $color-disabled-text;
+    }
+  }
+  
+  &_large {
+    padding: $fs-12 $fs-21;
+  }
+  &_small {
+    padding: $fs-10 $fs-17;
+  }
+  &_mini {
+    padding: $fs-5 $fs-8;
+  }
+
+  &_circle {
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    &.vi-button_large {
+      width: 42px;
+      height: 42px;
+    }
+    &.vi-button_small {
+      width: 36px;
+      height: 36px;
+    }
+    &.vi-button_mini {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  &.vi-button_disabled {
+    cursor: not-allowed;
+    opacity: .6;
+  }
+
+  &_loading {  
+    animation: animation-loading 1s infinite Linear;
+  }
+  &.is-loading {
+    opacity: .8;
+    pointer-events: none;
+  }
+}
+
+
+@keyframes animation-loading {
+  from {
+    transform:rotateZ(0deg);
+  }
+ 
+  to {
+    transform: rotateZ(360deg);
+  }
+}

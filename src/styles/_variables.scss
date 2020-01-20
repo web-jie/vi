@@ -1,0 +1,168 @@
+// 类名前缀
+
+$prefix: vi;
+
+//尺寸
+$fs-26: 26px;
+$fs-25: 25px;
+$fs-24: 24px;
+$fs-23: 23px;
+$fs-23: 23px;
+$fs-22: 22px;
+$fs-21: 21px;
+$fs-20: 20px;
+$fs-19: 19px;
+$fs-18: 18px;
+$fs-17: 17px;
+$fs-16: 16px;
+$fs-15: 15px;
+$fs-14: 14px;
+$fs-13: 13px;
+$fs-12: 12px;
+$fs-11: 11px;
+$fs-10: 10px;
+$fs-9: 9px;
+$fs-8: 8px;
+$fs-7: 7px;
+$fs-6: 6px;
+$fs-5: 5px;
+$fs-4: 4px;
+$fs-3: 3px;
+$fs-2: 2px;
+$fs-1: 1px;
+$fs-0: 0px;
+
+
+@function getColors($obj, $val) {
+  @return map-get($obj, $val);
+}
+
+// 主色
+$primary: (
+  main: #3399ff,
+  hover: #5cadff,
+  active: #3a8ee6,
+  disabled: #a0cfff,
+  bgdark: #d9ecff,
+  bglight: #ecf5ff
+);
+$color-primary: getColors($primary, main);
+// 常用于 hover
+$color-hover-primary: getColors($primary, hover);
+// 常用于 active
+$color-active-primary: getColors($primary, active);
+$color-disabled-primary: getColors($primary, disabled);
+$color-bgdark-primary: getColors($primary, bgdark);
+$color-bglight-primary: getColors($primary, bglight);
+
+// 辅助色
+// white
+$color-white: #fff;
+$color-black: #000;
+
+// Success
+$success: (
+  main: #67c23a,
+  hover: #85ce61,
+  active: #5daf34,
+  disabled: #b3e19d,
+  bgdark: #e1f3d8,
+  bglight: #f0f9eb
+  // bgLinkColor: 
+);
+$color-success: getColors($success, main);
+$color-hover-success: getColors($success, hover);
+$color-active-success: getColors($success, active);
+$color-disabled-success: getColors($success, disabled);
+$color-bgdark-success: getColors($success, bgdark);
+$color-bglight-success: getColors($success, bglight);
+
+// Warning
+$warning: (
+  main: #e6a23c,
+  hover: #ebb563,
+  active: #cf9236,
+  disabled: #f3d19e,
+  bgdark: #faecd8,
+  bglight: #fdf6ec
+);
+$color-warning: getColors($warning, main);
+$color-hover-warning: getColors($warning, hover);
+$color-active-warning: getColors($warning, active);
+$color-disabled-warning: getColors($warning, disabled);
+$color-bgdark-warning: getColors($warning, bgdark);
+$color-bglight-warning: getColors($warning, bglight);
+
+// Error
+$danger: (
+  main: #f56c6c,
+  hover: #f78989,
+  active: #dd6161,
+  disabled: #fab6b6,
+  bgdark: #fde2e2,
+  bglight: #fef0f0
+);
+$color-danger: getColors($danger, main);
+$color-hover-danger: getColors($danger, hover);
+$color-active-danger: getColors($danger, active);
+$color-disabled-danger: getColors($danger, disabled);
+$color-bgdark-danger: getColors($danger, bgdark);
+$color-bglight-danger: getColors($danger, bglight);
+// info 
+$info: (
+  main: #909399,
+  hover: #a6a9ad,
+  active: #606266,
+  disabled: #c8c9cc,
+  bgdark: #e9e9eb,
+  bglight: #f4f4f5
+);
+$color-info: getColors($info, main);
+$color-hover-info: getColors($info, hover);
+$color-active-info: getColors($info, active);
+$color-disabled-info: getColors($info, disabled);
+$color-bgdark-info: getColors($info, bgdark);
+$color-bglight-info: getColors($info, bglight);
+
+// Disabled
+$color-disabled: #c3cbd6;
+
+// Text
+$text: (
+  main: #303133,
+  hover: #606266,
+  active: #909399,
+  placeholder: #C0C4CC,
+  disabled: #909399,
+);
+$color-primary-text: getColors($text, main);
+
+// Regular Text
+$color-hover-text: getColors($text, hover);
+
+// Secondary Text
+$color-active-text: getColors($text, active);
+
+// Placeholder
+$color-placeholder-text: getColors($text, placeholder);
+$color-disabled-text: getColors($text, disabled);
+
+// Border Base
+$border: (
+  main: #DCDFE6,
+  hover: #E4E7ED,
+  active: #EBEEF5,
+);
+$color-primary-bd: getColors($border, main);
+
+$color-hover-bd: getColors($border, hover);
+
+$color-active-bd: getColors($border, active);
+
+// Background
+$background: (
+  main: #f5f7f9
+);
+$color-bg-basic: getColors($background, main);
+
+

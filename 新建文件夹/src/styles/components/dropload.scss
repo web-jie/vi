@@ -1,0 +1,49 @@
+.vi-upload-drop {
+  font-size: 14px;
+
+  .vi-upload-content {
+    .vi-drag-area {
+      height: 200px;
+      width: 300px;
+      border: dashed 1px gray;
+      margin-bottom: 10px;
+      color: #777;
+
+      .vi-upload-tips {
+        text-align: center;
+        height: 200px;
+        line-height: 200px;
+
+        label {
+          color: #11a8ff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .vi-upload-footer {
+    .vi-file-name {
+      text-align: center;
+      height: 20px;
+      line-height: 20px;
+      display: flex;
+      width: 300px;
+
+      .vi-file-txt {
+        width: 280px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .vi-file-icon {
+        width: 20px;
+      }
+
+      &.active {
+        background: #ccc;
+      }
+    }
+  }
+}

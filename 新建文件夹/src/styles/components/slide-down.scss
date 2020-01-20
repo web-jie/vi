@@ -1,0 +1,12 @@
+
+.vi-slide-down{
+  &-enter-active,
+  &-leave-active{
+    transition: height .2s;
+    overflow: hidden;
+  }
+  &-enter,
+  &-leave-to{
+    height: 0 !important;
+  }
+}

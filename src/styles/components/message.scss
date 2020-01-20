@@ -1,0 +1,47 @@
+@mixin setColors ($type) {
+  background-color: getBgLightColors($type);
+  color: getBasicColors($type);
+}
+
+.#{$prefix}-message {
+  position: fixed;
+  padding: 15px 20px;
+  border-radius: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $color-bglight-success;
+  color: $color-active-success;
+  top: 0;
+  font-size: 14px;
+  min-width: 360px;
+  display: flex;
+  align-items: center;
+  &_type-icon {
+    margin-right: 5px;
+  }
+  &_content {
+    flex: 1;
+  }
+  &_icon {
+    position: relative;
+    text-align: center;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    &-font {
+      @include setPosition()
+    }
+  }
+  &_success {
+    @include setColors(success)
+  }
+  &_info {
+    @include setColors(info)
+  }
+  &_warning {
+    @include setColors(warning)
+  }
+  &_danger {
+    @include setColors(danger)
+  }
+}
