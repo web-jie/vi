@@ -1,7 +1,7 @@
 <template>
   <button class="vi-button" :class="classes" @click="$emit('click')" :disabled="disabled" :style="buttonStyles">
     <template v-if="loading && loadingPosition === 'left'">
-      <vi-icon name="jiazai3" class="vi-button_loading " size="15"></vi-icon>
+      <vi-icon name="btn-loading" class="vi-button_loading" size="15"></vi-icon>
     </template>
     <span v-if="isShowContent" :style="iconStyles">
       <slot>
@@ -9,7 +9,7 @@
       </slot>
     </span>
     <template v-if="loading && loadingPosition === 'right'">
-      <vi-icon name="jiazai3" class="vi-button_loading " size="15"></vi-icon>
+      <vi-icon name="btn-loading" class="vi-button_loading " size="15"></vi-icon>
     </template>
   </button>
 </template>

@@ -8,9 +8,7 @@
     },
     methods: {
       onSuccess () {
-        this.$message({
-          content: '这是一段成功内容',
-        })
+        this.$message('这是一段成功内容')
       },
       onInfo () {
         this.$message({
@@ -54,6 +52,21 @@
           }
         })
       },
+
+      onDanger2 () {
+        const m = this.$message({
+          content: '手动关闭',
+          duration: 0,
+        })
+
+        setTimeout(() => {
+          m.close()
+        }, 3000)
+      },
+
+      onTypem (type) {
+        this.$message[type](`${type}框弹出`)
+      },
     }
   }
 </script>
@@ -75,9 +88,7 @@
     },
     methods: {
       onSuccess () {
-        this.$message({
-          content: '这是一段成功内容',
-        })
+        this.$message('这是一段成功内容')
       },
       onInfo () {
         this.$message({
@@ -161,6 +172,60 @@
 ```
 :::
 
+### 手动关闭 
+::: demo
+``` html
+<vi-button type="danger" @click="onDanger2">延时三秒手动关闭</vi-button>
+<script>
+  export default {
+    data () {
+      return { }
+    },
+    methods: {
+     onDanger2 () {
+        const m = this.$message({
+          content: '手动关闭',
+          duration: 0,
+        })
+
+        setTimeout(() => {
+          m.close()
+        }, 3000)
+      },
+    }
+  }
+</script>
+```
+:::
+
+::: tip
+调用 ```this.$message``` 会返回当前message实例， 可以手动去关闭它
+:::
+
+### 具体的type方法
+
+::: demo
+``` html
+<vi-button type="success" @click="onTypem('success')">成功</vi-button>
+<vi-button type="info" @click="onTypem('info')">提示</vi-button>
+<vi-button type="warning" @click="onTypem('warning')">警告</vi-button>
+<vi-button type="danger" @click="onTypem('danger')">错误</vi-button>
+
+<script>
+  export default {
+    data () {
+      return { }
+    },
+    methods: {
+     onTypem (type) {
+        this.$message[type](`${type}框弹出`) // this.$message.success() || info || warning || danger
+      },
+    }
+  }
+</script>
+```
+:::
+
 
 ## API
 ### Messaage Attributes
@@ -174,3 +239,7 @@
 |is-icon|Boolean|是否显示左侧图标|-|true|
 |before-close|Function|关闭时的回调函数, 参数为被关闭的 message 实例|-|-|
 
+### 方法
+方法名|参数|说明|
+|-|-|-|
+|close| - |关闭当前的 Message|

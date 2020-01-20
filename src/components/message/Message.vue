@@ -5,7 +5,7 @@
         <vi-icon :name="iconType[type]" size="18"></vi-icon>
       </div>
       <div class="vi-message_content">{{content}}</div>
-      <div class="vi-message_icon" @click="closeAnimation($el, 0)" v-if="isClose">
+      <div class="vi-message_icon" @click="close($el, 0)" v-if="isClose">
         <vi-icon name="close" size="15" class="vi-message_icon-font"></vi-icon>
       </div>
     </div>
@@ -32,7 +32,7 @@ export default {
     return {
       type: 'success',
       content: '',
-      close: null,
+      closeFn: null,
       componentTop: '',
       duration: 2000,
       isClose: false,
@@ -63,10 +63,11 @@ export default {
     },
     afterEnter (el) {
       if (this.duration === 0 || this.isClose) return
-      this.closeAnimation(el)
+      this.close(el)
     },
 
-    closeAnimation (el, duration = this.duration) {
+    close (el = this.$el, duration = this.duration) {
+      console.log(this, 'asdfsds')
       setTimeout(() => {
         Velocity(el, { opacity: 0 }, { duration: 350,
           complete: () => {
@@ -75,11 +76,11 @@ export default {
       }, duration)
     },
     animations () {
-      Velocity(this.$el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 100 }, 'ease-out')
+      Velocity(this.$el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 200 }, 'ease-out')
     },
     removeChild () {
       this.$destroy(true)
-      this.close(this.id)
+      this.closeFn(this.id)
     }
   }
 }

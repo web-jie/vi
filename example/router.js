@@ -35,7 +35,7 @@ const componentRoutes = pagesRoutes.find(route => route.name === 'component-page
 
 const groupNameList = []
 
-console.log(componentsList)
+// console.log(componentsList)
 // const requireRouter = require.context('./docs', true, /\.md$/)
 
 // console.log(requireRouter.keys())
@@ -43,7 +43,7 @@ console.log(componentsList)
 componentsList.forEach(requireName => {
   // 获取文件路径
   const fileName = requireName.match(/(?<=(\/)).*(?=\.md)/)[0]
-  console.log(fileName)
+  // console.log(fileName)
   // 分割文件字符串
   const fileNameList = fileName.split('/')
   // 得到md名

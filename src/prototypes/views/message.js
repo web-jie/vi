@@ -5,6 +5,11 @@ let list = []
 let seed = 1
 const Message = (options) => {
   options = options || {}
+  if (typeof options === 'string') {
+    options = {
+      content: options
+    }
+  }
   const MyComponent = Vue.extend(message)
 
   let verticalOffset = options.top || 30
@@ -12,8 +17,8 @@ const Message = (options) => {
     verticalOffset += item.$el.offsetHeight + 16
   })
 
-  options.close = function (id) {
-    Message.close(id)
+  options.closeFn = function (id) {
+    Message.closeFn(id)
   }
 
   const component = new MyComponent({
@@ -28,9 +33,10 @@ const Message = (options) => {
   document.getElementsByTagName('body')[0].appendChild(component.$el)
 
   list.push(component)
-  // console.log(component.$el.offsetHeight, 'dsds')
+
+  return component
 }
-Message.close = function (id) {
+Message.closeFn = function (id) {
   const findIndex = list.findIndex(v => v.id === id)
   const removeEl = list[findIndex].$el
   const removeHeight = removeEl.offsetHeight
@@ -46,6 +52,21 @@ Message.close = function (id) {
     }
   })
 }
+
+const typeList = ['success', 'info', 'warning', 'danger']
+typeList.forEach(v => {
+  Message[v] = function (options) {
+    options = options || {}
+    if (typeof options === 'string') {
+      options = {
+        content: options
+      }
+    }
+    options['type'] = v
+    Message(options)
+  }
+})
+
 export default {
   name: 'message',
   fn: Message
