@@ -67,7 +67,6 @@ export default {
     },
 
     close (el = this.$el, duration = this.duration) {
-      console.log(this, 'asdfsds')
       setTimeout(() => {
         Velocity(el, { opacity: 0 }, { duration: 350,
           complete: () => {

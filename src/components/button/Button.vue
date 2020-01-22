@@ -96,7 +96,7 @@ export default {
     },
     buttonStyles () {
       return {
-        borderColor: this.contentColor
+        // borderColor: this.contentColor
       }
     }
   }

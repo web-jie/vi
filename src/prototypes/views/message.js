@@ -67,7 +67,4 @@ typeList.forEach(v => {
   }
 })
 
-export default {
-  name: 'message',
-  fn: Message
-}
+export default Message

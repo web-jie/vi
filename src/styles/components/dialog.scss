@@ -1,0 +1,37 @@
+.#{$prefix}-dialog {
+  @include setPosition(inherit, $position-box: fixed);
+  z-index: 1001;
+  &_main {
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+    margin: 0 auto 0;
+    border-radius: 8px;
+    .vi-dialog_close {
+      @include setPosition(right, 14px, 16px);
+      cursor: pointer;
+    }
+    .vi-dialog_header {
+      padding: $fs-14 $fs-16;
+      &-inner {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      &.vi-message_header-bd {
+        border-bottom: 1px solid $color-primary-bd;
+      }
+    }
+    .vi-dialog_content {
+      padding: $fs-14 $fs-16;
+    }
+    .vi-dialog_footer {
+      padding: $fs-14 $fs-16;
+      &.vi-message_footer-bd {
+        border-top: 1px solid $color-primary-bd;
+      }
+      & .vi-dialog_button {
+        text-align: right;
+      }
+    }
+  }
+}
