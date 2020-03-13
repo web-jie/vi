@@ -1,0 +1,66 @@
+.vi-input {
+  position: relative;
+  font-size: $fs-14;
+  display: inline-block;
+  &_inner {
+    display: inline-block;
+    outline: none;
+    padding: $fs-0 $fs-15;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    border: 1px solid $color-primary-bd;
+    color: $color-primary-text;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: inherit;
+    background-color: $color-white;
+    transition: all .3s;
+    &:hover {
+      border-color: $color-hover-bd;
+    }
+    &:focus {
+      border-color: $color-active-primary;
+    }
+  }
+  &_disabled {
+    cursor: not-allowed;
+    background-color: $color-disabled;
+    border-color: $color-hover-bd;
+  }
+  &_readonly {
+    &:hover {
+      border-color: $color-primary-bd;
+    }
+    &:focus {
+      border-color: $color-primary-bd;
+    }
+  }
+  &_clearable {
+    cursor: pointer;
+    @include setPosition(y-center) {
+      right: 10px;
+    }
+  }
+  &_clearable-inner {
+    padding-right: 30px;
+  }
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: $color-placeholder-text;
+  font-size: $fs-14;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: $color-placeholder-text;
+  font-size: $fs-14;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: $color-placeholder-text;
+  font-size: $fs-14;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: $color-placeholder-text;
+  font-size: $fs-14;
+}

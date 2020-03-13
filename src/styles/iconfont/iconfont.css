@@ -38,3 +38,7 @@
 .vi-icon-btn-loading::before {
   content: "\e62e";
 }
+.vi-icon-clear::before {
+  content: "\e671";
+}
+

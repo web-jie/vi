@@ -1,6 +1,5 @@
 .#{$prefix}-dialog {
   @include setPosition(inherit, $position-box: fixed);
-  z-index: 1001;
   &_main {
     box-sizing: border-box;
     position: relative;

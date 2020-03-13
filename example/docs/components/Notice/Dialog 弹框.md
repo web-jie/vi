@@ -5,6 +5,8 @@
         show1: false,
         show2: false,
         show3: false,
+        outerVisible: false,
+        innerVisible: false,
         type: ''
       }
     },
@@ -49,7 +51,7 @@
 ``` html
 <vi-button @click="onOpen1">打开</vi-button>
 
-<vi-dialog v-model="show1" :confirm="confirm" :cancel="cancel" >
+<vi-dialog v-model="show1" :confirm="confirm" :cancel="cancel">
   <p>对话框内容</p>
   <p>对话框内容</p>
   <p>对话框内容</p>
@@ -162,6 +164,47 @@
 ```
 :::
 
+### 多级弹框
+如果需要在一个 Dialog 内部嵌套另一个 Dialog，需要使用 append-to-body 属性。
+::: demo
+``` html
+<vi-button @click="outerVisible = true">打开</vi-button>
+<vi-dialog 
+  title="标题"
+  width="900px"
+  v-model="outerVisible">
+  <p>第一层dialog</p>
+  <vi-dialog 
+    width="650px"
+    :append-to-body="true"
+    title="标题"
+    v-model="innerVisible">
+    <p>第二层dialog</p>
+    <template slot="button">
+      <vi-button @click="innerVisible = false">返回</vi-button>
+    </template>
+  </vi-dialog>
+  <template slot="button">
+    <vi-button @click="outerVisible = false">取消</vi-button>
+    <vi-button type="primary" @click="innerVisible = true">打开第一层dialog</vi-button>
+  </template>
+</vi-dialog>
+
+<script>
+  export default {
+    data () {
+      return {
+        outerVisible: false,
+        innerVisible: false
+      }
+    },
+    methods: {}
+  }
+</script>
+```
+:::
+
+
 ## API
 ### Dialog Attributes
 |参数|类型|说明|可选值|默认值|
@@ -182,6 +225,7 @@
 |confirm-text|String|确认按钮文字|-|确定|
 |cancel-text|String|取消按钮文字|-|取消|
 |is-close-esc|Boolean|是否可以通过按下 ESC 关闭|-|true|
+|append-to-body|Boolean|Dialog 自身是否插入至 body 元素上。嵌套的 Dialog 必须指定该属性并赋值为 true|-|false|
 
 ### Slot
 |name | 说明|

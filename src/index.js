@@ -1,6 +1,7 @@
 import Components from './components'
 import Directives from './directives'
 import Prototypes from './prototypes'
+import utils from './utils'
 
 export default {
   install: (Vue, options = {}) => {
@@ -10,5 +11,7 @@ export default {
     Vue.use(Directives)
     // 注册实例方法
     Vue.use(Prototypes, { scope: options.scope })
+    // 注册全局方法
+    Vue.use(utils)
   }
 }

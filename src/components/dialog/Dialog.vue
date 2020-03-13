@@ -1,5 +1,5 @@
 <template>
-  <div class="vi-dialog" v-show="showBox" @click.self="closeOnClickOverlay && (show = false)" >
+  <div class="vi-dialog" v-show="showBox" @click.self="closeOnClickOverlay && (show = false)" :style="viDialogStyles">
     <!--@click.self="closeOnClickOverlay && onClose()"-->
     <transition
     @beforeEnter="beforeEnter"
@@ -101,9 +101,18 @@ export default {
     isCloseEsc: {
       type: Boolean,
       default: true
+    },
+    appendToBody: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
+    viDialogStyles () {
+      return {
+        zIndex: this.zIndex
+      }
+    },
     boxStyles () {
       return {
         width: this.getPx(this.width)
@@ -126,9 +135,13 @@ export default {
     },
     show (val) {
       if (val) {
-        this.masks = this.$viMask()
+        this.$viMask()
+        // this.masks = this.$viMask()
         // 添加esc事件
         this.isCloseEsc && this.keydown()
+        this.$VIELEMENT.setZIndex()
+        this.zIndex = this.$VIELEMENT.getZIndex()
+        // this.$VIELEMENT.getZIndex()
       } else {
         window.removeEventListener('keydown', this.keydownFn)
       }
@@ -138,19 +151,30 @@ export default {
   created () {
     this.show = this.value
   },
+  mounted () {
+    if (this.appendToBody) {
+      this.$nextTick(() => {
+        const body = document.querySelector('body')
+        if (body.append) {
+          body.append(this.$el)
+        } else {
+          body.appendChild(this.$el)
+        }
+      })
+    }
+  },
   data () {
     return {
       show: false,
       masks: null,
       styles: {},
-      showBox: false
+      showBox: false,
+      zIndex: this.$VIELEMENT.getZIndex()
     }
   },
   methods: {
     keydown (e) {
       window.addEventListener('keydown', this.keydownFn)
-      // esc取消
-      // e.keyCode === 27 && (this.show = false)
     },
     keydownFn (e) {
       e.keyCode === 27 && (this.show = false)
@@ -208,7 +232,8 @@ export default {
     },
 
     leave (el, done) {
-      this.masks.toggleMask()
+      this.$VIELEMENT.setZIndex('-')
+      this.$VIELEMENT.mask.toggleMask()
       Object.keys(this.styles).forEach(v => {
         this.styles[v] = 0
       })
@@ -239,7 +264,6 @@ export default {
     },
 
     fade (el) {
-      console.log(this.top)
       el.style.marginTop = this.getPx(this.top)
       el.style.opacity = 0
     },

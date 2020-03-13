@@ -9,26 +9,34 @@ export default {
   name: 'vi-mask',
   data () {
     return {
-      show: false
+      show: false,
+      zIndex: this.$VIELEMENT.getZIndex(),
+      count: 0
     }
   },
   computed: {
     styles () {
       return {
-        zIndex: 1000,
+        zIndex: this.zIndex,
         toggle: null
       }
     }
   },
   watch: {
     show (val) {
-      !val && this.closeFlag()
       this.toggle && this.toggle(val)
+      !val && (this.$VIELEMENT.mask = null)
     }
   },
   methods: {
     toggleMask () {
-      this.show = false
+      if (this.count !== 0) {
+        this.zIndex -= 2
+        this.count--
+        this.$VIELEMENT.setZIndex('-')
+      } else {
+        this.show = false
+      }
     }
   }
 }

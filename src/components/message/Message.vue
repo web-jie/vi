@@ -19,7 +19,7 @@ export default {
   computed: {
     styleles () {
       return {
-        zIndex: 1000
+        zIndex: this.$VIELEMENT.getZIndex() + 1
       }
     },
     classes () {
