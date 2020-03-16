@@ -1,41 +1,64 @@
-.vi-input {
+@mixin box () {
   position: relative;
   font-size: $fs-14;
   display: inline-block;
-  &_inner {
-    display: inline-block;
-    outline: none;
-    padding: $fs-0 $fs-15;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 4px;
-    border: 1px solid $color-primary-bd;
-    color: $color-primary-text;
-    cursor: pointer;
-    box-sizing: border-box;
-    width: 100%;
-    font-size: inherit;
-    background-color: $color-white;
-    transition: all .3s;
-    &:hover {
-      border-color: $color-hover-bd;
-    }
-    &:focus {
-      border-color: $color-active-primary;
-    }
-  }
-  &_disabled {
+  & .is-disabled {
     cursor: not-allowed;
     background-color: $color-disabled;
     border-color: $color-hover-bd;
   }
-  &_readonly {
+  & .is-readonly {
     &:hover {
       border-color: $color-primary-bd;
     }
     &:focus {
       border-color: $color-primary-bd;
     }
+  }
+  .vi-input_word {
+    position: absolute;
+    font-size: 12px;
+    color: $color-active-text;
+    pointer-events: none;
+    bottom: 0;
+    right: 8px;
+    top: 0;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@mixin inner() {
+  display: inline-block;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid $color-primary-bd;
+  color: $color-primary-text;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: inherit;
+  background-color: $color-white;
+  transition: all .3s;
+  &:hover {
+    border-color: $color-hover-bd;
+  }
+  &:focus {
+    border-color: $color-active-primary;
+  }
+}
+@mixin size ($size: 40px) {
+  .vi-input_inner {
+    height: $size;
+  }
+}
+.vi-input {
+  @include box();
+  &_inner {
+    @include inner();
+    padding: $fs-0 $fs-15;
+    height: 40px;
+    line-height: 40px;
   }
   &_clearable {
     cursor: pointer;
@@ -46,7 +69,29 @@
   &_clearable-inner {
     padding-right: 30px;
   }
+  
+  &.vi-input_small {
+    @include size(36px)
+  }
+  &.vi-input_large {
+    @include size(44px)
+  }
+  &.vi-input_mini {
+    @include size(32px)
+  }
 }
+
+.vi-textarea {
+  @include box();
+  width: 313px;
+  &_inner {
+    @include inner();
+    padding: 8px 12px;
+    min-height: 33px;
+  }
+}
+
+.vi-input_showWord {}
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   color: $color-placeholder-text;

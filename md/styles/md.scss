@@ -97,8 +97,10 @@ section {
     td{
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
-      padding: 16px 0px;
+      padding: 16px 10px;
       max-width: 250px;
+      line-height: 1.5;
+      box-sizing: border-box;
     }
   }
   div.tip,
