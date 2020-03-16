@@ -16,10 +16,10 @@ export default {
     list.forEach(v => {
       if (namespace) {
         Vue.prototype[namespace] = {
-          ['$' + toLowerCase(v.name)]: v
+          ['$' + toLowerCase(v.name)]: v.fn
         }
       } else {
-        Vue.prototype['$' + toLowerCase(v.name)] = v
+        Vue.prototype['$' + toLowerCase(v.name)] = v.fn
       }
     })
   }

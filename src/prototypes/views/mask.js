@@ -24,4 +24,7 @@ const ViMask = (options) => {
   Vue.prototype.$VIELEMENT.mask = component
   return component
 }
-export default ViMask
+export default {
+  name: 'ViMask',
+  fn: ViMask
+}
