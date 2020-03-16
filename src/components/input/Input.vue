@@ -1,7 +1,7 @@
 <template>
   <div :class="boxClasses">
     <template v-if="type === 'textarea'">
-      <textarea 
+      <textarea
       class="vi-textarea_inner"
       :placeholder="placeholder"
       :cols="cols"
@@ -104,25 +104,25 @@ export default {
     }
   },
   computed: {
-    isShowWord() {
+    isShowWord () {
       return (this.type === 'text' || this.type === 'textarea') && this.maxlength > 0 && this.showWord
     },
-    boxClasses() {
+    boxClasses () {
       return [
         this.type === 'textarea' ? 'vi-textarea' : 'vi-input',
         this.size && this.type !== 'textarea' && `vi-input_${this.size}`,
         this.isShowWord && 'vi-input_showWord'
       ]
     },
-    areaStyles() {
+    areaStyles () {
       return {
         resize: this.areaResize
       }
     },
-    statusClassess() {
+    statusClassess () {
       return [
         this.disabled && 'is-disabled',
-        this.readonly && 'is-readonly',
+        this.readonly && 'is-readonly'
       ]
     },
     classes () {
@@ -130,10 +130,10 @@ export default {
         this.clearable && 'vi-input_clearable-inner'
       ]
     },
-    wordStyles() {
+    wordStyles () {
       return {
         alignItems: this.type === 'textarea' ? 'flex-end' : 'center',
-        marginBottom: this.type === 'textarea' ? '8px' : 'auto',
+        marginBottom: this.type === 'textarea' ? '8px' : 'auto'
       }
     }
   },
@@ -142,6 +142,6 @@ export default {
       this.$emit('input', '')
       this.$refs.input.focus()
     }
-  },
+  }
 }
 </script>
