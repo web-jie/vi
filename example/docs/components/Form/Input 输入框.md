@@ -79,7 +79,7 @@ export default {
 ### 输入框状态
 ::: demo
 ``` html
-禁用： <vi-input placeholder="请输入内容" disabled></vi-input>
+禁用： <vi-input placeholder="请输入内容" disabled v-model="input1"></vi-input>
 只读： <vi-input placeholder="请输入内容" readonly>
 ```
 :::
@@ -145,3 +145,10 @@ export default {
 |input|在 Input 值改变时触发|(value: string / number)|
 |focus|在 Input 获得焦点时触发|(event: Event)|
 |blur|在 Input 值改变时触发|(event: Event)|
+
+
+### Input Methods
+|方法名|说明|参数|
+|-|-|-|
+|focus|使 input 获取焦点|-|
+|blur|使 input 失去焦点|-|

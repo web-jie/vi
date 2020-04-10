@@ -4,7 +4,6 @@
     <transition
     @beforeEnter="beforeEnter"
     @enter="enter"
-    @afterEnter="afterEnter"
     @leave="leave"
     @afterLeave="afterLeave"
     appear
@@ -37,6 +36,7 @@
 
 <script>
 import Velocity from 'velocity-animate'
+import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 export default {
   name: 'vi-dialog',
   model: {
@@ -136,14 +136,13 @@ export default {
     show (val) {
       if (val) {
         this.$viMask()
-        // this.masks = this.$viMask()
-        // 添加esc事件
         this.isCloseEsc && this.keydown()
         this.$VIELEMENT.setZIndex()
         this.zIndex = this.$VIELEMENT.getZIndex()
-        // this.$VIELEMENT.getZIndex()
+        this.$VIELEMENT.dialogList.push(this)
       } else {
-        window.removeEventListener('keydown', this.keydownFn)
+        this.$VIELEMENT.dialogList.pop()
+        !this.$VIELEMENT.dialogList.length && removeWindowsEvent()
       }
       this.$emit('change', val)
     }
@@ -174,10 +173,12 @@ export default {
   },
   methods: {
     keydown (e) {
-      window.addEventListener('keydown', this.keydownFn)
+      bindWindowsEvent((e) => {
+        this.keydownFn(e)
+      })
     },
     keydownFn (e) {
-      e.keyCode === 27 && (this.show = false)
+      e.keyCode === 27 && (this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].show = false)
     },
     onCancel () {
       this.show = false
@@ -226,9 +227,6 @@ export default {
       //   opacity: 1
       // }
       Velocity(el, style, { duration: 300, complete: done }, 'ease-out')
-    },
-
-    afterEnter (el) {
     },
 
     leave (el, done) {

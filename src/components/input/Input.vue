@@ -26,8 +26,10 @@
       :class="[...statusClassess, ...classes]"
       :value="value"
       @input="$emit('input', $event.target.value)"
-      @focus="$emit('focus', $event)"
-      @blur="$emit('blur', $event)"
+      @focus="isFocus = true; $emit('focus', $event)"
+      @blur="isFocus = false; $emit('blur', $event)"
+      @mouseenter="mouseenter"
+      @mouseleave="mouseleave"
       :type="type"
       :placeholder="placeholder"
       :name="name"
@@ -38,7 +40,9 @@
       :min="min" />
     </template>
 
-    <span class="vi-input_clearable" v-if="clearable && value && !isShowWord && type !== 'textarea'" @click="onClearable">
+    <slot></slot>
+    <span class="vi-input_clearable" v-if="isShowClear" @click.stop="onClearable" @mouseenter="mouseenter"
+      @mouseleave="mouseleave">
       <vi-icon name="close" size="14"></vi-icon>
     </span>
     <template v-if="isShowWord">
@@ -103,6 +107,13 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      isHover: false,
+      isFocus: false
+      // isShowClear: false
+    }
+  },
   computed: {
     isShowWord () {
       return (this.type === 'text' || this.type === 'textarea') && this.maxlength > 0 && this.showWord
@@ -135,13 +146,33 @@ export default {
         alignItems: this.type === 'textarea' ? 'flex-end' : 'center',
         marginBottom: this.type === 'textarea' ? '8px' : 'auto'
       }
+    },
+    isShowClear: {
+      get(val) {
+        return (this.clearable && this.value && !this.isShowWord && this.type !== 'textarea' && (this.isHover || this.isFocus))
+      },
+      set(val) {
+        return val
+      }
     }
   },
   methods: {
+    mouseenter() {
+      this.isHover = true
+    },
+    mouseleave() {
+      this.isHover = false
+    },
     onClearable () {
       this.$emit('input', '')
+      this.focus()
+    },
+    focus() {
       this.$refs.input.focus()
-    }
+    },
+    blur() {
+      this.$refs.input.blur()
+    },
   }
 }
 </script>

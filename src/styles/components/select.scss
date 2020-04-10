@@ -1,0 +1,55 @@
+.vi-select {
+  display: inline-block;
+  position: relative;
+  .is-Focus {
+    .vi-input_inner {
+      border-color: $color-active-primary;
+    }
+  }
+  &_content {
+    z-index: 1000;
+    position: absolute;
+    
+    transform: translateY(4px);
+    width: 100%;
+    background-color: $color-white;
+    border-radius: $fs-4;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    padding: $fs-6 0;
+    box-sizing: border-box;
+    max-height: 210px;
+    overflow: hidden;
+    transition: color .3s ease;
+    overflow-y: auto;
+    color: rgba(0, 0, 0, 0);
+    &:hover {
+      color: rgba(0, 0, 0, 0.2);
+    }
+    .vi-select_ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: $color-primary-text;
+      .vi-select_item {
+        padding: $fs-6 $fs-12;
+        cursor: pointer;
+        font-size: 14px;
+        &.is-active {
+          background-color: $color-primary-bg;
+          color: $color-primary;
+        }
+        &.is-disabled {
+          color: $color-disabled-text;
+          background-color: transparent;
+          &:hover {
+            background-color: transparent;
+          }
+          cursor: not-allowed;
+        }
+        &:hover {
+          background-color: $color-hover-bg;
+        }
+      }
+    }
+  }
+}

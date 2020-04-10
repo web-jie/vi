@@ -6,6 +6,7 @@
     cursor: not-allowed;
     background-color: $color-disabled;
     border-color: $color-hover-bd;
+    color: $color-disabled-text;
   }
   & .is-readonly {
     &:hover {

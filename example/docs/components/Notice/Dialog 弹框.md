@@ -227,7 +227,7 @@
 |is-close-esc|Boolean|是否可以通过按下 ESC 关闭|-|true|
 |append-to-body|Boolean|Dialog 自身是否插入至 body 元素上。嵌套的 Dialog 必须指定该属性并赋值为 true|-|false|
 
-### Slot
+### Dialog Slot
 |name | 说明|
 |-|-|
 |-|Dialog 的内容|

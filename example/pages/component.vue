@@ -1,14 +1,14 @@
 <template>
   <vi-container class="component-page">
     <vi-aside class="component-page__aside">
-      <div>
+      <div style="color: #000">
         <h2 class="title">开发指南</h2>
         <vi-menu v-model="menu">
           <vi-menu-item v-for="(route, index) in guideList" :key="index"
                         :name="route.name" :to="route">{{route.meta.name}}</vi-menu-item>
         </vi-menu>
       </div>
-      <div>
+      <div style="color: #000">
         <h2 class="title">组件</h2>
         <vi-menu v-model="menu">
           <vi-menu-group v-for="(item, index) in groupList" :key="index" :title="item.title">
@@ -19,7 +19,7 @@
         </vi-menu>
       </div>
     </vi-aside>
-    <vi-main class="component-page__body">
+    <vi-main class="component-page__body" ref="page-body">
       <router-view></router-view>
     </vi-main>
   </vi-container>
@@ -38,6 +38,11 @@ export default {
       groupList
     }
   },
+  watch: {
+    '$route'() {
+      this.$refs['page-body'].$el.scrollTop = 0
+    }
+  },
   methods: {
     toggleRouter () {
       this.router = !this.router
@@ -53,6 +58,11 @@ export default {
     overflow: auto;
     padding: 50px 15px 90px 0;
     min-width: 230px;
+    color: rgba(0, 0, 0, 0);
+    transition: all .3s;
+    &:hover {
+      color: rgba(0, 0, 0, 0.2);
+    }
     .title {
       padding: 15px 20px;
       font-weight: bold;
@@ -61,6 +71,11 @@ export default {
   &__body {
     padding: 50px 30px 90px 40px;
     overflow: auto;
+    color: rgba(0, 0, 0, 0);
+    transition: all .3s;
+    &:hover {
+      color: rgba(0, 0, 0, 0.2);
+    }
   }
 }
 </style>
