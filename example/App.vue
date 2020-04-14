@@ -6,7 +6,7 @@
       <ul class="app-header-nav">
         <li><router-link class="heading-small" to="/">Home</router-link></li>
         <li><router-link class="heading-small" :to="{name: 'layout'}">Components</router-link></li>
-        <li><a class="heading-small" target="_blank" href="https://github.com/interest-group/vi">Github</a></li>
+        <li><a class="heading-small" target="_blank" href="https://github.com/luyibiao/vi">Github</a></li>
       </ul>
     </vi-header>
     <vi-container class="app-container">

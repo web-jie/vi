@@ -107,7 +107,7 @@ export default {
       default: false
     }
   },
-  data() {
+  data () {
     return {
       isHover: false,
       isFocus: false
@@ -148,31 +148,31 @@ export default {
       }
     },
     isShowClear: {
-      get(val) {
+      get (val) {
         return (this.clearable && this.value && !this.isShowWord && this.type !== 'textarea' && (this.isHover || this.isFocus))
       },
-      set(val) {
+      set (val) {
         return val
       }
     }
   },
   methods: {
-    mouseenter() {
+    mouseenter () {
       this.isHover = true
     },
-    mouseleave() {
+    mouseleave () {
       this.isHover = false
     },
     onClearable () {
       this.$emit('input', '')
       this.focus()
     },
-    focus() {
+    focus () {
       this.$refs.input.focus()
     },
-    blur() {
+    blur () {
       this.$refs.input.blur()
-    },
+    }
   }
 }
 </script>

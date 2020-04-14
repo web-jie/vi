@@ -1,16 +1,16 @@
 <template>
   <div class="vi-select">
-    <vi-input 
+    <vi-input
     style="width: 100%"
-    readonly 
+    readonly
     ref="input"
     :value="inputValue"
     :class="inputClasses"
-    :disabled="disabled" 
+    :disabled="disabled"
     :size="size"
-    @focus="getFocus" 
+    @focus="getFocus"
     :placeholder="placeholder">
-      <transition 
+      <transition
       appear
       @beforeEnter="beforeEnter"
       @enter="enter"
@@ -50,12 +50,12 @@ export default {
       default: false
     }
   },
-  provide() {
+  provide () {
     return {
       options: this
     }
   },
-  data() {
+  data () {
     return {
       inputValue: '',
       isShow: false,
@@ -64,7 +64,7 @@ export default {
     }
   },
   watch: {
-    isShow(val) {
+    isShow (val) {
       if (val) {
         bindWindowsEvent(() => {
           if (!this.isFirstFlag) {
@@ -73,58 +73,58 @@ export default {
           this.isFirstFlag = false
         }, 'click')
       } else {
-        
+
       }
     },
-    value(val) {
+    value (val) {
       this.setInputVal()
       this.$emit('change', val)
     }
   },
-  mounted() {
+  mounted () {
     this.childrenList = this.$children[0].$children || []
     this.setInputVal()
   },
   computed: {
-    inputClasses() {
+    inputClasses () {
       return [
         this.isShow && 'is-Focus'
       ]
     }
   },
   methods: {
-    getFocus() {
+    getFocus () {
       this.isShow = true
     },
-    blur() {
+    blur () {
       this.isShow = false
       this.$refs.input.blur()
     },
-    setInputVal() {
+    setInputVal () {
       const options = this.childrenList.find(v => v.value === this.value)
       if (options) {
         this.inputValue = options.$el.innerText
       }
     },
-    getData(options) {
+    getData (options) {
       this.$emit('input', options.value)
       this.blur()
     },
-    beforeEnter(el,done) {
+    beforeEnter (el, done) {
       el.style.opacity = 0
       el.style.transform = `translateY(0px)`
       el.style.top = '80%'
     },
-    enter(el, done) {
-      Velocity(el, {opacity: 1, transform: `translateY(4px)`, top: '100%'}, { duration: 250, complete: done }, 'ease-out')
+    enter (el, done) {
+      Velocity(el, { opacity: 1, transform: `translateY(4px)`, top: '100%' }, { duration: 250, complete: done }, 'ease-out')
     },
-    leave(el, done) {
-      Velocity(el, {opacity: 0}, { duration: 250, complete: done }, 'ease-out')
+    leave (el, done) {
+      Velocity(el, { opacity: 0 }, { duration: 250, complete: done }, 'ease-out')
     },
-    afterLeave() {
+    afterLeave () {
       this.isFirstFlag = true
       removeWindowsEvent(() => {}, 'click')
     }
-  },
+  }
 }
 </script>

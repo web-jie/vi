@@ -39,7 +39,7 @@ const groupNameList = []
 // const requireRouter = require.context('./docs', true, /\.md$/)
 
 // console.log(requireRouter.keys())
-
+// const componentsList = []
 componentsList.forEach(requireName => {
   // 获取文件路径
   const fileName = requireName.match(/(?<=(\/)).*(?=\.md)/)[0]

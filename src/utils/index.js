@@ -1,7 +1,7 @@
 
 const dataOptions = {
   zIndex: 1000,
-  dialogList: [],
+  dialogList: []
 }
 
 const getZIndex = function (type = '+') {
@@ -23,7 +23,7 @@ dataOptions['setZIndex'] = setZIndex
 // }
 
 var callbackFn
-function callback(e) {
+function callback (e) {
   callbackFn && callbackFn(e)
 }
 

@@ -2,6 +2,7 @@ import Components from './components'
 import Directives from './directives'
 import Prototypes from './prototypes'
 import utils from './utils'
+import  './styles/index.scss'
 
 export default {
   install: (Vue, options = {}) => {

@@ -5,7 +5,6 @@ import router from './router'
 import vi from '../src'
 import DemoBlock from '../md/demo-block'
 
-import '../src/styles/index.scss'
 import '../md/styles/index.scss'
 import './docs-styles/index.scss'
 

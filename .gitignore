@@ -1,6 +1,15 @@
 .DS_Store
 node_modules
-# /dist
+
+
+# dependencies
+dist
+example
+md
+public
+
+# production
+
 
 # local env files
 .env.local

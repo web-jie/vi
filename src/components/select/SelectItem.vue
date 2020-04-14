@@ -22,14 +22,14 @@ export default {
     }
   },
   inject: ['options'],
-  data() {
+  data () {
     return {
       innerValue: ''
     }
   },
- 
+
   computed: {
-    classes() {
+    classes () {
       return [
         this.options.value === this.value && 'is-active',
         this.disabled && 'is-disabled'
@@ -37,9 +37,9 @@ export default {
     }
   },
   methods: {
-    onSelect() {
+    onSelect () {
       this.options.getData(this)
-    },
-  },
+    }
+  }
 }
 </script>

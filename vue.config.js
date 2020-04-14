@@ -5,6 +5,7 @@ module.exports = {
   lintOnSave: false,
   assetsDir: 'static',
   publicPath: './',
+  productionSourceMap: false,
   chainWebpack: config => {
     config.entryPoints
       .get('app')
@@ -24,6 +25,11 @@ module.exports = {
         raw: true,
         ...configs
       })
+  },
+  css: {
+    extract: {
+      filename: 'css/[name].css?v=' + '1.0.1',
+    }
   },
   // css: {
   //   loaderOptions: {

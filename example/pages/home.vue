@@ -5,7 +5,7 @@
         <div class="desc">
           <h3 class="heading-super">中后台快速开发的组件库</h3>
           <p class="paragraph">vi 是一套基于 Vue 开发的组件库，集成大量常用的UI组件，帮助开发者快速完成PC端的中后台产品开发</p>
-          <vi-button type="info" size="large" @click="$router.push({path: '/develop'})">
+          <vi-button type="primary" size="large" @click="$router.push({path: '/component/layout'})">
             快速开始
             <vi-icon name="arrow-right"></vi-icon>
           </vi-button>
@@ -53,15 +53,15 @@
       </div>
       <div class="banner clear">
         <div class="contributor">
-          <h2 class="desc heading-large">
-            各位大佬我实在编不下去了, 请自行脑补吧 ...
+          <h2 class="desc heading-large" style="line-height: 1.5;">
+            使用组件 Demo 快速体验交互细节；使用前端框架封装的代码帮助工程师快速开发。
           </h2>
         </div>
         <img class="fr" src="../assets/svg/home-banner3.svg" alt="">
       </div>
     </div>
     <div class="home-page__footer">
-      &copy;2019 - vi (Vue Components) / interest-groups
+      &copy;2019 - vi (Vue Components)
     </div>
   </div>
 </template>
@@ -74,22 +74,24 @@ export default {
 <style lang="scss" scoped>
 .home-page {
   width: 100%;
-
+  overflow: auto;
+  color: #909399;
   .home-page__body {
     width: 90%;
     max-width: 1360px;
     margin: 0 auto;
     padding: 100px 0;
+    color: #000;
   }
 
   .banner {
     position: relative;
-
     &:not(:first-child) {
       margin-top: 250px;
     }
 
     &:nth-child(1) {
+      
       img {
         width: 60%;
       }
@@ -109,14 +111,24 @@ export default {
 
     .desc {
       width: 36%;
-
+      right: 0;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-
+      .heading-super {
+        font-size: 30px;
+        font-weight: bold;
+        color: #303133;
+      }
+      &.heading-large {
+        line-height: 1.5;
+        font-size: 30px;
+      }
       p {
         margin-top: 30px;
         margin-bottom: 50px;
+        line-height: 1.5;
+        font-size: 18px;
       }
     }
   }
