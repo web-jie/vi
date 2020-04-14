@@ -26,11 +26,6 @@ module.exports = {
         ...configs
       })
   },
-  css: {
-    extract: {
-      filename: 'css/[name].css?v=' + '1.0.1'
-    }
-  },
   // css: {
   //   loaderOptions: {
   //     scss: {
