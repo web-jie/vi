@@ -3,7 +3,7 @@ node_modules
 
 
 # dependencies
-dist
+# dist
 example
 md
 public
