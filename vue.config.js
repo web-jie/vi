@@ -28,7 +28,7 @@ module.exports = {
   },
   css: {
     extract: {
-      filename: 'css/[name].css?v=' + '1.0.1',
+      filename: 'css/[name].css?v=' + '1.0.1'
     }
   },
   // css: {
