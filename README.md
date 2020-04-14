@@ -3,11 +3,11 @@
 # install 
 ``` 
 # Using npm 
-npm i vi-elment-vue -S
+npm i vi-element-vue -S
 
 
 # Using yarn 
-yarn add vi-elment-vue
+yarn add vi-element-vue
 
 ```
 
@@ -17,8 +17,8 @@ yarn add vi-elment-vue
 # Quickstart
 ```
 import Vue from 'vue';
-import vi from 'vi-elment-vue'
-import 'vi-elment-vue/lib/index.css'
+import vi from 'vi-element-vue'
+import 'vi-element-vue/lib/index.css'
 
 
 Vue.use(vi)
