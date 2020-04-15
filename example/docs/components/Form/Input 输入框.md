@@ -6,7 +6,9 @@ export default {
       input1: '',
       input2: '',
       input3: '',
-      input4: ''
+      input4: '',
+      input5: '',
+      input6: ''
     }
   },
   methods: {
@@ -118,6 +120,28 @@ export default {
 ```
 :::
 
+### 输入框头部尾部图标
+::: demo
+``` html
+<div>
+  <vi-input placeholder="请输入内容" v-model="input6" prefix-icon="search"></vi-input>
+</div>
+<div>
+  <vi-input placeholder="请输入内容" v-model="input5" suffix-icon="edit"></vi-input>
+</div>
+<script>
+export default {
+  data() {
+    return{
+      input5: '',
+      input6: ''
+    }
+  }
+}
+</script>
+```
+:::
+
 ## API
 ### Input Attributes
 |参数|类型|说明|可选值|默认值|
@@ -138,6 +162,8 @@ export default {
 |autofocus|Boolean|原生属性，自动获取焦点|-|false|
 |size|String|尺寸, 在 ```type !== textarea```时有效|large / small / mini|-|
 |show-word|Boolean|显示字数|-|false|
+|prefix-icon|String|输入框头部图标, 在```type !== textarea```时有效|-|-|
+|suffix-icon|String|输入框尾部图标，在```type !== textarea```时有效|-|-|
 
 ### Input Events
 |事件名称|说明|回调参数|

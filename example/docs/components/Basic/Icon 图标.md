@@ -11,11 +11,10 @@
 <vi-icon name="loading"></vi-icon>
 ```
 ## 图标集合
-
 <div class="vi-icon_box">
   <div class="vi-icon_item" v-for="(item, index) in iconList" :key="index" @click="onCopy(item)">
     <div class="vi-icon_item-content">
-      <vi-icon :name="item.className" size="30"></vi-icon>
+      <vi-icon :name="item.className" size="30" ></vi-icon>
       <p class="vi-icon_text">{{item.className}}</p>
     </div>
   </div>
@@ -30,7 +29,7 @@ export default {
     return {
       iconList: [
         {
-          className: 'checked'
+          className: 'search'
         },
         {
           className: 'warning'

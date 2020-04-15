@@ -5,7 +5,7 @@
         <div class="desc">
           <h3 class="heading-super">中后台快速开发的组件库</h3>
           <p class="paragraph">vi 是一套基于 Vue 开发的组件库，集成大量常用的UI组件，帮助开发者快速完成PC端的中后台产品开发</p>
-          <vi-button type="primary" size="large" @click="$router.push({path: '/component/layout'})">
+          <vi-button type="primary" size="large" @click="$router.push({path: 'component/快速上手'})">
             快速开始
             <vi-icon name="arrow-right"></vi-icon>
           </vi-button>

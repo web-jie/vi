@@ -8,16 +8,26 @@
     :class="inputClasses"
     :disabled="disabled"
     :size="size"
-    @focus="getFocus"
+    @focus="isShow = true"
+    @mouseenter.native="clearable && (isHover = true)"
+    @mouseleave.native="clearable && (isHover = false)"
     :placeholder="placeholder">
+      <template slot="suffix-icon" v-if="!isShowClear">
+        <span class="vi-select_pull_down" :class="pullDownClasses">
+          <vi-icon name="pull_down"></vi-icon>
+        </span>
+      </template>
+      <template v-else>
+        <span class="vi-select_clearable">
+          <vi-icon name="close" size="16" @click.stop="onClearcAble"></vi-icon>
+        </span>
+      </template>
       <transition
       appear
-      @beforeEnter="beforeEnter"
-      @enter="enter"
-      @leave="leave"
-      @afterLeave="afterLeave">
-        <div class="vi-select_content" v-show="isShow" >
-          <ul class="vi-select_ul" >
+      @afterLeave="afterLeave"
+      name="selectFade">
+        <div class="vi-select_content" v-show="isShow" :style="ulStyles" ref="select_content" id="aa">
+          <ul class="vi-select_ul">
             <slot></slot>
           </ul>
         </div>
@@ -27,7 +37,7 @@
 </template>
 
 <script>
-import Velocity from 'velocity-animate'
+// import Velocity from 'velocity-animate'
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 export default {
   name: 'vi-select',
@@ -60,7 +70,10 @@ export default {
       inputValue: '',
       isShow: false,
       isFirstFlag: true,
-      childrenList: []
+      childrenList: [],
+      isHover: false,
+      currIndex: 0,
+      isFirstScroll: true
     }
   },
   watch: {
@@ -72,8 +85,11 @@ export default {
           }
           this.isFirstFlag = false
         }, 'click')
+        this.$nextTick(() => {
+          this.isFirstScroll && (this.$refs['select_content'].scrollTop = (this.currIndex > 2 ? (this.currIndex - 3) : 0) * 37)
+        })
       } else {
-
+        this.isFirstScroll = false
       }
     },
     value (val) {
@@ -86,40 +102,47 @@ export default {
     this.setInputVal()
   },
   computed: {
+    pullDownClasses () {
+      return [
+        this.isShow && 'vi-select_pull_down-active'
+      ]
+    },
     inputClasses () {
       return [
         this.isShow && 'is-Focus'
       ]
+    },
+    ulStyles () {
+      return {
+        zIndex: this.$VIELEMENT.getZIndex() + 1
+      }
+    },
+    isShowClear () {
+      return this.clearable && ((this.isHover && this.value) || this.isShow)
     }
   },
   methods: {
-    getFocus () {
-      this.isShow = true
+    onClearcAble () {
+      this.$emit('input', '')
     },
     blur () {
       this.isShow = false
       this.$refs.input.blur()
     },
+    focus () {
+      this.$refs.input.focus()
+    },
     setInputVal () {
-      const options = this.childrenList.find(v => v.value === this.value)
-      if (options) {
-        this.inputValue = options.$el.innerText
+      this.currIndex = this.childrenList.findIndex(v => v.value === this.value)
+      if (this.currIndex > -1) {
+        this.inputValue = this.childrenList[this.currIndex].$el.innerText
+      } else {
+        this.inputValue = ''
       }
     },
     getData (options) {
       this.$emit('input', options.value)
       this.blur()
-    },
-    beforeEnter (el, done) {
-      el.style.opacity = 0
-      el.style.transform = `translateY(0px)`
-      el.style.top = '80%'
-    },
-    enter (el, done) {
-      Velocity(el, { opacity: 1, transform: `translateY(4px)`, top: '100%' }, { duration: 250, complete: done }, 'ease-out')
-    },
-    leave (el, done) {
-      Velocity(el, { opacity: 0 }, { duration: 250, complete: done }, 'ease-out')
     },
     afterLeave () {
       this.isFirstFlag = true

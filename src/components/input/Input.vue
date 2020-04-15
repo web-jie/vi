@@ -23,6 +23,7 @@
       <input
       ref="input"
       class="vi-input_inner"
+      :style="inputStyles"
       :class="[...statusClassess, ...classes]"
       :value="value"
       @input="$emit('input', $event.target.value)"
@@ -38,8 +39,20 @@
       :maxlength="maxlength"
       :max="max"
       :min="min" />
-    </template>
 
+      <span class="vi-input_prefix-icon" v-if="prefixIcon || $slots['prefix-icon']">
+        <slot name="prefix-icon">
+          <vi-icon :name="prefixIcon" size="14"></vi-icon>
+        </slot>
+      </span>
+
+      <span class="vi-input_suffix-icon" v-if="suffixIcon || $slots['suffix-icon']">
+        <slot name="suffix-icon">
+          <vi-icon :name="suffixIcon" size="14"></vi-icon>
+        </slot>
+      </span>
+
+    </template>
     <slot></slot>
     <span class="vi-input_clearable" v-if="isShowClear" @click.stop="onClearable" @mouseenter="mouseenter"
       @mouseleave="mouseleave">
@@ -105,6 +118,14 @@ export default {
     showWord: {
       type: Boolean,
       default: false
+    },
+    prefixIcon: {
+      type: String,
+      default: ''
+    },
+    suffixIcon: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -113,6 +134,8 @@ export default {
       isFocus: false
       // isShowClear: false
     }
+  },
+  created () {
   },
   computed: {
     isShowWord () {
@@ -128,6 +151,12 @@ export default {
     areaStyles () {
       return {
         resize: this.areaResize
+      }
+    },
+    inputStyles () {
+      return {
+        paddingRight: (this.suffixIcon || this.$slots['suffix-icon']) && '30px',
+        paddingLeft: (this.prefixIcon || this.$slots['prefix-icon']) && '22px'
       }
     },
     statusClassess () {

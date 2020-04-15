@@ -8,19 +8,22 @@
     margin-top: -1px;
     transition: all .2s;
     cursor: pointer;
-    &:hover {
-      color: #409eff;
-    }
     .vi-icon_item-content {
       height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      i {
+        color: #909399;
+      }
       .vi-icon_text {
         margin-top: 8px;
         color: #99a9bf; 
       }
+    }
+    &:hover i, &:hover .vi-icon_text{
+      color: #409eff !important;
     }
   }
 }

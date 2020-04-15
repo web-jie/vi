@@ -1,5 +1,5 @@
 <template>
-  <li class="vi-select_item" @click.stop="disabled ? null : onSelect()" :class="classes">
+  <li class="vi-select_item" @click.stop="!disabled && onSelect()" :class="classes">
     <slot>{{label || value || ""}}</slot>
   </li>
 </template>

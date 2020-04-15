@@ -131,6 +131,10 @@
     bottom: $bottom;
     right: $right;
   }
+  @else if $position == left {
+    top: $top;
+    left: $left;
+  }
   @else if $position == right {
     top: $top;
     right: $right;

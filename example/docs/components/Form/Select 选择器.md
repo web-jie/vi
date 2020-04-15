@@ -2,7 +2,7 @@
 export default {
   data() {
     return{
-      value1: '2',
+      value1: '4',
       value2: '',
       value3: '',
       value4: '',
@@ -41,6 +41,8 @@ export default {
   created() {
     
   },
+  mounted() {
+  },
   methods: {
     change(val) {
       console.log(val)
@@ -54,7 +56,7 @@ export default {
 ### 基本用法
 ::: demo
 ``` html
-<vi-select style="width: 220px" v-model="value1" >
+<vi-select style="width: 220px" v-model="value1" ref="select">
   <vi-option v-for="(item, index) in list" :key="index" :label="item.label" :value="item.value"></vi-option>
 </vi-select>
 
@@ -232,6 +234,12 @@ export default {
 |事件名称|说明|回调参数|
 |-|-|-|
 |change|选中值发生变化时触发|目前的选中值|
+
+### Select Methods
+|方法名|说明|参数|
+|-|-|-|
+|focus|使 select 获取焦点|-|
+|blur|使 select 失去焦点|-|
 
 ### Select slots
 |name | 说明|

@@ -5,7 +5,7 @@
       <h1 class="app-header-title heading-middle">Vue Components</h1>
       <ul class="app-header-nav">
         <li><router-link class="heading-small" to="/">Home</router-link></li>
-        <li><router-link class="heading-small" :to="{name: 'layout'}">Components</router-link></li>
+        <li><router-link class="heading-small" to="/component/快速上手">Components</router-link></li>
         <li><a class="heading-small" target="_blank" href="https://github.com/luyibiao/vi">Github</a></li>
       </ul>
     </vi-header>

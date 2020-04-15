@@ -80,6 +80,23 @@
   &.vi-input_mini {
     @include size(32px)
   }
+  &_prefix-icon {
+    @include setPosition(left, $left: 6px, $top: 2px) {
+      bottom: 0;
+    }
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+  &_suffix-icon {
+    @include setPosition(right, $top: 2px) {
+      bottom: 0;
+      right: 6px;
+    }
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
 }
 
 .vi-textarea {
