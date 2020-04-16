@@ -12,6 +12,7 @@
     @mouseenter.native="clearable && (isHover = true)"
     @mouseleave.native="clearable && (isHover = false)"
     :placeholder="placeholder">
+
       <template slot="suffix-icon" v-if="!isShowClear">
         <span class="vi-select_pull_down" :class="pullDownClasses">
           <vi-icon name="pull_down"></vi-icon>
@@ -22,16 +23,18 @@
           <vi-icon name="close" size="16" @click.stop="onClearcAble"></vi-icon>
         </span>
       </template>
+
       <transition
       appear
       @afterLeave="afterLeave"
       name="selectFade">
-        <div class="vi-select_content" v-show="isShow" :style="ulStyles" ref="select_content" id="aa">
+        <div class="vi-select_content" v-show="isShow" :style="ulStyles" ref="select_content">
           <ul class="vi-select_ul">
             <slot></slot>
           </ul>
         </div>
       </transition>
+
     </vi-input>
   </div>
 </template>
@@ -118,7 +121,7 @@ export default {
       }
     },
     isShowClear () {
-      return this.clearable && ((this.isHover && this.value) || this.isShow)
+      return this.clearable && ((this.isHover || this.isShow) && this.value)
     }
   },
   methods: {

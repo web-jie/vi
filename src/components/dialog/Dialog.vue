@@ -1,13 +1,12 @@
 <template>
-  <div class="vi-dialog" v-show="showBox" @click.self="closeOnClickOverlay && (show = false)" :style="viDialogStyles">
-    <!--@click.self="closeOnClickOverlay && onClose()"-->
-    <transition
-    @beforeEnter="beforeEnter"
-    @enter="enter"
-    @leave="leave"
+  <transition
+    @before-leave="beforeLeave"
     @afterLeave="afterLeave"
-    appear
-    v-if="show">
+    @after-enter="afterEnter"
+    :name="`vi-dialog-${animation}`"
+    appear>
+    <div class="vi-dialog" v-show="show" @click.self="closeOnClickOverlay && (show = false)" :style="viDialogStyles" :msg="msg" ref="box" role="dialog">
+      <!--@click.self="closeOnClickOverlay && onClose()"-->
       <div class="vi-dialog_main" :style="boxStyles">
         <div class="vi-dialog_close" @click="show = false" v-if="isCloseIcon">
           <vi-icon name="close" size="18" color="#999"></vi-icon>
@@ -30,12 +29,11 @@
           </div>
         </div>
       </div>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 
 <script>
-import Velocity from 'velocity-animate'
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 export default {
   name: 'vi-dialog',
@@ -105,7 +103,8 @@ export default {
     appendToBody: {
       type: Boolean,
       default: false
-    }
+    },
+    msg: [String]
   },
   computed: {
     viDialogStyles () {
@@ -115,7 +114,8 @@ export default {
     },
     boxStyles () {
       return {
-        width: this.getPx(this.width)
+        width: this.getPx(this.width),
+        marginTop: this.getPx(this.top)
       }
     },
     headerClasses () {
@@ -140,9 +140,11 @@ export default {
         this.$VIELEMENT.setZIndex()
         this.zIndex = this.$VIELEMENT.getZIndex()
         this.$VIELEMENT.dialogList.push(this)
+        this.$emit('open')
       } else {
         this.$VIELEMENT.dialogList.pop()
         !this.$VIELEMENT.dialogList.length && removeWindowsEvent()
+        this.$emit('close')
       }
       this.$emit('change', val)
     }
@@ -152,14 +154,7 @@ export default {
   },
   mounted () {
     if (this.appendToBody) {
-      this.$nextTick(() => {
-        const body = document.querySelector('body')
-        if (body.append) {
-          body.append(this.$el)
-        } else {
-          body.appendChild(this.$el)
-        }
-      })
+      document.querySelector('body').appendChild(this.$el)
     }
   },
   data () {
@@ -188,90 +183,15 @@ export default {
       if (String(val).includes('%') || String(val).includes('px')) return val
       return `${val}px`
     },
-    beforeEnter (el) {
-      this.showBox = true
-      switch (this.animation) {
-        // 淡入淡出
-        case 'fade':
-          this.fade(el)
-          break
-        // 上方滑入
-        case 'upper-slide':
-          this.upperSlide(el)
-          break
-          // 下方滑入
-        case 'below-slide':
-          this.belowSlide(el)
-          break
-      }
-    },
-    enter (el, done) {
-      let style = {}
-      switch (this.animation) {
-        // 淡出
-        case 'fade':
-          style = this.enterFade(el)
-          break
-          // 上方滑入
-        case 'upper-slide':
-          style = this.enterUpperSlide(el)
-          break
-        // 下方滑入
-        case 'below-slide':
-          style = this.enterBelowSlide(el)
-          break
-      }
-      this.styles = style
-      // const style = {
-      //   // marginTop: String(this.top).includes('px') ? this.top : `${this.top}px`,
-      //   opacity: 1
-      // }
-      Velocity(el, style, { duration: 300, complete: done }, 'ease-out')
-    },
-
-    leave (el, done) {
+    beforeLeave (el, done) {
       this.$VIELEMENT.setZIndex('-')
       this.$VIELEMENT.mask.toggleMask()
-      Object.keys(this.styles).forEach(v => {
-        this.styles[v] = 0
-      })
-      Velocity(el, this.styles, { duration: 300, complete: done }, 'ease-out')
     },
-
+    afterEnter () {
+      this.$emit('opened')
+    },
     afterLeave () {
-      this.showBox = false
-    },
-
-    enterFade (el) {
-      return {
-        opacity: 1,
-        marginTop: this.getPx(this.top)
-      }
-    },
-    enterUpperSlide (el) {
-      return {
-        marginTop: this.getPx(this.top),
-        opacity: 1
-      }
-    },
-    enterBelowSlide (el) {
-      return {
-        marginTop: this.getPx(this.top),
-        opacity: 1
-      }
-    },
-
-    fade (el) {
-      el.style.marginTop = this.getPx(this.top)
-      el.style.opacity = 0
-    },
-    upperSlide (el) {
-      el.style.marginTop = 0
-      el.style.opacity = 0
-    },
-    belowSlide (el) {
-      el.style.marginTop = '100%'
-      el.style.opacity = 0
+      this.$emit('closed')
     }
   }
 }

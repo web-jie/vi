@@ -33,4 +33,43 @@
       }
     }
   }
+  //淡入淡出
+  &-fade-enter, &-fade-leave-to {
+    opacity: 0;
+  }
+  &-fade-enter-active, &-fade-leave-active {
+    transition: all $duration03;
+  }
+
+  // 上方滑入
+  &-upper-slide-enter, &-upper-slide-leave-to {
+    margin-top: -100%;
+  }
+  &-upper-slide-enter-active, &-upper-slide-leave-active {
+    transition: all $duration03;
+  }
+
+  // 下方滑入
+  &-below-slide-enter, &-below-slide-leave-to {
+    margin-top: 100%;
+  }
+  &-below-slide-enter-active, &-below-slide-leave-active {
+    transition: all $duration03;
+  }
+
+  // 左边滑入
+  &-left-slide-enter, &-left-slide-leave-to {
+    left: -100%;
+  }
+  &-left-slide-enter-active, &-left-slide-leave-active {
+    transition: all $duration02;
+  }
+
+  // 右边滑入
+  &-right-slide-enter, &-right-slide-leave-to {
+    left: 100%;
+  }
+  &-right-slide-enter-active, &-right-slide-leave-active {
+    transition: all $duration02;
+  }
 }

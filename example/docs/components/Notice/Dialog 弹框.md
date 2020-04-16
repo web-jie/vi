@@ -88,6 +88,8 @@
 <vi-button @click="onShowAnimation('fade')">淡入淡出</vi-button>
 <vi-button @click="onShowAnimation('upper-slide')">上方滑入</vi-button>
 <vi-button @click="onShowAnimation('below-slide')">下方滑入</vi-button>
+<vi-button @click="onShowAnimation('left-slide')">左边滑入</vi-button>
+<vi-button @click="onShowAnimation('right-slide')">右边滑入</vi-button>
 <vi-dialog 
   v-model="show2"
   :confirm="confirm" 
@@ -102,7 +104,8 @@
   export default {
     data () {
       return {
-        show2: false
+        show2: false,
+        type: ''
       }
     },
     methods: {
@@ -172,12 +175,14 @@
 <vi-dialog 
   title="标题"
   width="900px"
+  msg="msg"
   v-model="outerVisible">
   <p>第一层dialog</p>
   <vi-dialog 
     width="650px"
-    :append-to-body="true"
+    append-to-body
     title="标题"
+    msg="msg1"
     v-model="innerVisible">
     <p>第二层dialog</p>
     <template slot="button">
@@ -212,7 +217,7 @@
 |v-model|Boolean|是否显示 Dialog|- |false|
 |title|String|标题|-|标题|
 |top| Number / String|弹框的 margin-top 值|-|120|
-|animation|String|弹框动画|fade / upper-slide / below-slide |fade|
+|animation|String|弹框动画|fade / upper-slide / below-slide / left-slide / right-slide |fade|
 |width|Number / String|弹框宽度|-|30%|
 |close-on-click-overlay|Boolean|是否在点击遮罩层后关闭弹窗|-|true|
 |is-close-icon|Boolean|是否显示右上角关闭图标|-|true|
@@ -226,6 +231,14 @@
 |cancel-text|String|取消按钮文字|-|取消|
 |is-close-esc|Boolean|是否可以通过按下 ESC 关闭|-|true|
 |append-to-body|Boolean|Dialog 自身是否插入至 body 元素上。嵌套的 Dialog 必须指定该属性并赋值为 true|-|false|
+
+### Dialog Events
+|事件名称|说明|回调参数|
+|-|-|-|
+|open|Dialog 打开的回调|-|
+|opened|Dialog 打开动画结束时的回调|-|
+|close|Dialog 关闭动画结束时的回调|-|
+|closed|Dialog 关闭动画结束时的回调|-|
 
 ### Dialog Slot
 |name | 说明|

@@ -32,6 +32,9 @@ $fs-2: 2px;
 $fs-1: 1px;
 $fs-0: 0px;
 
+$duration02: .2s;
+$duration03: .3s;
+
 
 @function getColors($obj, $val) {
   @return map-get($obj, $val);

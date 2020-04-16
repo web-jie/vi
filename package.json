@@ -1,6 +1,6 @@
 {
   "name": "vi-element-vue",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "private": false,
   "main": "lib/index.umd.min.js",
   "scripts": {
