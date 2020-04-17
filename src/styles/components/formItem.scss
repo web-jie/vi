@@ -1,0 +1,66 @@
+
+.vi-form-item {
+  @mixin position ($position: right) {
+    .vi-form_label {
+      @include setPosition(y-center) {
+        left: 0;
+      }
+      text-align: $position;
+    }
+  }
+  position: relative;
+  margin-bottom: 25px;
+  &.vi-form-item_inline {
+    display: inline-block;
+    margin-right: $fs-14;
+  }
+  &.vi-form-item-left {
+    @include position(left)
+  }
+  &.vi-form-item-right {
+    @include position()
+  }
+  &.vi-form-item-top {
+    .vi-form_label {
+      position: relative;
+      margin-bottom: $fs-6;
+    }
+  }
+  .vi-form_label {
+    padding-right: $fs-12;
+    font-size: $fs-14;
+    box-sizing: border-box;
+  }
+  .vi-form_inner {
+    position: relative;
+    font-size: $fs-14;
+  }
+
+  &.vi-form_err-item {
+    .vi-input_inner {
+      border-color: $color-danger;
+    }
+  }
+  .vi-form-err_tips {
+    color: red;
+    font-size: $fs-12;
+    @include setPosition(custom) {
+      bottom: -18px;
+      left: 0;
+    }
+    opacity: 1;
+  }
+  .vi-form_required {
+    color: $color-danger;
+    font-size: $fs-15;
+    margin-right: $fs-4;
+  }
+
+  .tips-enter-active, .tips-leave-active {
+    transition: all $duration02;
+    
+  }
+  .tips-enter, .tips-leave-to {
+    opacity: 0;
+  }
+}

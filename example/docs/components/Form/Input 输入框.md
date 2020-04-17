@@ -150,6 +150,7 @@ export default {
 |type|String|类型|text，textarea 和其他 原生 input 的 type 值|text|
 |placeholder|String|输入框默认内容|-|-|
 |name|String|原生属性, input的名称|-|-|
+|width|String / Number|输入框宽度|-|100%|
 |disabled|Boolean|禁用|-|false|
 |readonly|Boolean|只读|-|false|
 |clearable|Boolean|是否可清空|-|false|

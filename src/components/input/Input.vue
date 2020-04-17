@@ -1,5 +1,5 @@
 <template>
-  <div :class="boxClasses">
+  <div :class="boxClasses" :style="boxStyles">
     <template v-if="type === 'textarea'">
       <textarea
       class="vi-textarea_inner"
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import { getPx } from '../../utils/helper'
 export default {
   name: 'vi-input',
   props: {
@@ -126,6 +127,10 @@ export default {
     suffixIcon: {
       type: String,
       default: ''
+    },
+    width: {
+      type: [String, Number],
+      default: ''
     }
   },
   data () {
@@ -147,6 +152,11 @@ export default {
         this.size && this.type !== 'textarea' && `vi-input_${this.size}`,
         this.isShowWord && 'vi-input_showWord'
       ]
+    },
+    boxStyles () {
+      return {
+        width: getPx(this.width)
+      }
     },
     areaStyles () {
       return {

@@ -26,18 +26,6 @@ export default {
       show: true
     }
   },
-  computed: {
-    parentValue () {
-      let parent = this.$parent
-      while (parent) {
-        if (parent.$options.name === 'vi-tabs') {
-          break
-        }
-        parent = parent.$parent
-      }
-      return parent
-    }
-  },
   methods: { }
 }
 </script>

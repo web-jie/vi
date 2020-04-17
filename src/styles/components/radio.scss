@@ -1,0 +1,61 @@
+.vi-radio {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: $fs-15;
+  user-select: none;
+  &.is-disabled {
+    color: $color-disabled-text;
+    cursor: not-allowed;
+    .vi-radio_inner {
+      border-color: $color-disabled-info;
+      &::after {
+        background-color: $color-disabled-info;
+      }
+    }
+    .vi-radio_input {
+      cursor: not-allowed;
+    }
+  }
+  &_inner-box {
+    position: relative;
+  }
+  &_inner {
+    @include setPosition(inherit);
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+    border: 1px solid $color-primary-bd;
+    border-radius: 50%;
+    // position: relative;
+    &.is-active {
+      border-color: $color-primary;
+      &::after {
+        opacity: 1;
+      }
+    }
+    &::after {
+      content: "";
+      display: block;
+      @include setPosition();
+      width: 8px;
+      height: 8px;
+      background-color: $color-primary;
+      border-radius: 50%;
+      opacity: 0;
+      transition: all $duration02;
+    }
+  }
+  &_input {
+    cursor: pointer;
+    @include setPosition(inherit);
+    z-index: 1;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+  }
+  &_label {
+    font-size: $fs-14;
+    margin-left: 20px;
+  }
+}

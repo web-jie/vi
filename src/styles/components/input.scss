@@ -1,4 +1,5 @@
 @mixin box () {
+  width: 100%;
   position: relative;
   font-size: $fs-14;
   display: inline-block;
@@ -101,7 +102,6 @@
 
 .vi-textarea {
   @include box();
-  width: 313px;
   &_inner {
     @include inner();
     padding: 8px 12px;

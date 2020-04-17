@@ -34,7 +34,6 @@
           </ul>
         </div>
       </transition>
-
     </vi-input>
   </div>
 </template>

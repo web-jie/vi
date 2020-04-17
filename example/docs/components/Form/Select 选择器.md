@@ -250,8 +250,8 @@ export default {
 ### options Attributes
 |参数|类型|说明|可选值|默认值|
 |-|-|-|-|-|
-|label|Boolean / String / Number|选项的值|-|-|
-|value|Boolean / String / Number|选项的标签，若不设置则默认与 value 相同|-|-|
+|label|String|选项的标签，若不设置则默认与 value 相同|-|-|
+|value|Boolean / String / Number|选项的值|-|-|
 |disabled|Boolean|禁用|-|false|
 
 ### options slots

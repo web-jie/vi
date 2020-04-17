@@ -35,6 +35,7 @@
 
 <script>
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
+import { getPx } from '../../utils/helper'
 export default {
   name: 'vi-dialog',
   model: {
@@ -114,8 +115,8 @@ export default {
     },
     boxStyles () {
       return {
-        width: this.getPx(this.width),
-        marginTop: this.getPx(this.top)
+        width: getPx(this.width),
+        marginTop: getPx(this.top)
       }
     },
     headerClasses () {
@@ -178,10 +179,6 @@ export default {
     onCancel () {
       this.show = false
       this.cancel()
-    },
-    getPx (val) {
-      if (String(val).includes('%') || String(val).includes('px')) return val
-      return `${val}px`
     },
     beforeLeave (el, done) {
       this.$VIELEMENT.setZIndex('-')

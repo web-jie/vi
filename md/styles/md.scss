@@ -106,10 +106,12 @@ section {
   div.tip,
   div.warning{
     position: relative;
-    padding: 4px 24px;
-    margin: 12px;
+    padding: 15px 24px;
+    margin: 12px 0;
     border: 1px solid transparent;
     transition: all 0.5s ease;
+    letter-spacing: 1px;
+    font-size: 14px;
     &:before{
       content: '';
       position: absolute;
