@@ -4,12 +4,13 @@ node_modules
 
 # dependencies
 # dist
-example
-md
-public
 
-# production
 
+# example
+# md
+# public
+
+lib
 
 # local env files
 .env.local
