@@ -79,8 +79,13 @@ export default {
 
       ruleForm9: {
         user: '',
-        pass: ''
+        pass: '',
+        type: ''
       },
+      typeList1: [
+        {label: '超级管理员', value: 'superAdmin'}, 
+        {label: '管理员', value: 'admin'}
+      ],
       condition: 'blur',
       
       labelPosition: 'left',
@@ -112,6 +117,12 @@ export default {
       checkPassRules: [
         {validator: checkPass, required: true}
       ]
+    }
+  },
+  watch: {
+    condition() {
+      this.$refs.ruleForm9.resetValidate()
+      this.$refs.ruleForm9.resetFields()
     }
   },
   methods: {
@@ -257,8 +268,8 @@ export default {
   <vi-form-item label="食物名称" prop="name">
     <vi-input width="260px" v-model="ruleForm4.name"></vi-input>
   </vi-form-item>
-  <vi-form-item label="食物类型" prop="type">
-    <vi-select v-model="ruleForm4.type">
+  <vi-form-item label="食物类型" prop="type" >
+    <vi-select v-model="ruleForm4.type" clearable>
       <vi-option v-for="(item, index) in typeList" :key="index" :label="item.label" :value="item.value" />
     </vi-select>
   </vi-form-item>
@@ -545,11 +556,16 @@ export default {
 
 
 <vi-form label-width="100" :ruleForm="ruleForm9" ref="ruleForm9">
-  <vi-form-item label="请输入账号" prop="user" :rules="[{reg: /^[0-9]{8}$/, message: '账号必须为八位数', trigger: condition}]">
+  <vi-form-item label="请输入账号" prop="user" :rules="[{reg: /^[0-9]{8}$/, message: '账号必须为八位数', required: true}]" :trigger="condition">
     <vi-input width="260px" v-model="ruleForm9.user"></vi-input>
   </vi-form-item>
-  <vi-form-item label="请输入密码" prop="pass" :rules="[{reg: /^[0-9]{8}$/, message: '密码必须为八位数', trigger: condition}]">
+  <vi-form-item label="请输入密码" prop="pass" :rules="[{reg: /^[0-9]{8}$/, message: '密码必须为八位数', required: true}]" :trigger="condition">
     <vi-input width="260px" v-model="ruleForm9.pass"></vi-input>
+  </vi-form-item>
+  <vi-form-item label="角色类型" prop="type" :rules="[{required: true, message: '请选择角色'}]" :trigger="condition">
+    <vi-select v-model="ruleForm9.type" clearable>
+      <vi-option v-for="(item, index) in typeList1" :key="index" :label="item.label" :value="item.value" />
+    </vi-select>
   </vi-form-item>
   <vi-form-item>
     <vi-button>取消</vi-button>
@@ -564,8 +580,18 @@ export default {
       condition: 'blur',
       ruleForm9: {
         user: '',
-        pass: ''
+        pass: '',
+        type: ''
       },
+      typeList1: [
+        {label: '超级管理员', value: 'superAdmin'}, 
+        {label: '管理员', value: 'admin'}
+      ]
+    }
+  },
+  watch: {
+    condition() {
+      this.$refs.ruleForm9.resetValidate()
     }
   },
   methods: {
@@ -593,6 +619,13 @@ export default {
 |label-width|String / Number|标签宽度|-|80|
 |is-custom-errtip|Boolean|是否自定义错误提示|-|false|
 
+### Form Methods
+|方法名|说明|参数|
+|-|-|-|
+|validate|对整个表单进行校验的方法，参数为一个回调函数。该回调函数会在校验结束后被调用 |Function(callback: Function(boolean))   |
+|resetFields|对整个表单进行重置，将所有字段值重置为初始值并移除校验结果 | - |
+|resetValidate|移除表单项的校验结果 | - |
+
 
 ### FormItem Attributes
 |参数|类型|说明|可选值|默认值|
@@ -600,14 +633,15 @@ export default {
 |label|String|标签文本|-|-|
 |rules|Array|表单验证规则|-|-|
 |width|String / Number|标签宽度|-|-|
+|trigger|String|触发校验条件|click / change / blur|blur|
 
 ### Rules Attributes
-|属性|类型|说明|默认值|可选值|
+|属性|类型|说明|可选值|默认值|
 |-|-|-|-|-|
-|message|String|错误提示文字，也可在校验函数里自定义|error|-|
+|message|String|错误提示文字，也可在校验函数里自定义|-|error|
 |required|Boolean|是否为必填字段|-|-|
 |validator|Function|自定义校验规则函数|-|-|
 |reg|RegExp / String|校验正则|-|-|
 |implement|Function|状态结果回调出来函数|-|-|
-|trigger|String|触发校验条件|blur|click / change / blur|
+
 

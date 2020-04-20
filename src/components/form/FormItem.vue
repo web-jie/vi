@@ -33,6 +33,15 @@ export default {
     prop: {
       type: String,
       default: ''
+    },
+    trigger: {
+      type: String,
+      default: 'blur'
+    }
+  },
+  provide () {
+    return {
+      ViFormItemOptions: this
     }
   },
   data () {
@@ -79,12 +88,21 @@ export default {
       }
     }
   },
-  mounted () {
-  },
+  mounted () {},
   methods: {
+    events (type) {
+      if (this.trigger === type) {
+        this.validate()
+      }
+    },
     validate (fn) {
-      const vm = this
       this.formValue = this.getFormValue()
+      // 如果没有校验规则或prop值不存在表单属性上
+      if (!this.rulesList.length || !this.isProp) {
+        fn && fn(true)
+        return
+      }
+      const vm = this
       // 自定义回调处理方法
       const check = function (val) {
         // 此时this即是规则对象
@@ -98,36 +116,45 @@ export default {
         fn && fn(vm.isSuccessFlag)
       }
 
-      // 如果没有校验规则或prop值不存在表单属性上
-      if (!this.rulesList.length || !this.isProp) {
-        fn && fn(true)
-        return
-      }
-
       // 遍历规则
       this.rulesList.forEach(v => {
-        // 如果有不通过的情况下， 则不继续往下校验
-        if (!this.errMsg) {
-          // 存在不为空属性 ,  则校验不为空
-          if (v.required) {
-            this.implementCallback(v, /\S/)
+        // 存在不为空属性 ,  则校验不为空
+        if (v.required) {
+          this.implementCallback(v, /\S/)
+          fn && fn(this.isSuccessFlag)
+        }
+        // 如果有自定方法， 则优先校验
+        if (v.validator && typeof v.validator === 'function') {
+          v.validator(v, this.formValue, check.bind(v))
+        } else {
+          // 如果有正则
+          if (v.reg) {
+            this.implementCallback(v, v.reg)
             fn && fn(this.isSuccessFlag)
           }
-          // 如果有自定方法， 则优先校验
-          if (v.validator && typeof v.validator === 'function') {
-            v.validator(v, this.formValue, check.bind(v))
-          } else {
-            // 如果有正则
-            if (v.reg) {
-              this.implementCallback(v, v.reg)
-              fn && fn(this.isSuccessFlag)
-            }
-          }
-        } else {
-          // 如果有在错误状态， 直接返回false
-          fn && fn(false)
-          v.implement && v.implement(vm.isSuccessFlag, vm.errMsg)
         }
+        // 如果有不通过的情况下， 则不继续往下校验
+        // if (!this.errMsg) {
+        //   // 存在不为空属性 ,  则校验不为空
+        //   if (v.required) {
+        //     this.implementCallback(v, /\S/)
+        //     fn && fn(this.isSuccessFlag)
+        //   }
+        //   // 如果有自定方法， 则优先校验
+        //   if (v.validator && typeof v.validator === 'function') {
+        //     v.validator(v, this.formValue, check.bind(v))
+        //   } else {
+        //     // 如果有正则
+        //     if (v.reg) {
+        //       this.implementCallback(v, v.reg)
+        //       fn && fn(this.isSuccessFlag)
+        //     }
+        //   }
+        // } else {
+        //   // 如果有在错误状态， 直接返回false
+        //   fn && fn(false)
+        //   v.implement && v.implement(vm.isSuccessFlag, vm.errMsg)
+        // }
       })
     },
 
@@ -137,11 +164,6 @@ export default {
       v.implement && v.implement(this.isSuccessFlag, this.errMsg, v)
     },
 
-    getParentData () {
-      if (this.formValue !== this.getFormValue()) {
-        this.errMsg = ''
-      }
-    },
     getFormValue () {
       // 得到要校验的form表单值
       let formsValue = this.parentValue.ruleForm

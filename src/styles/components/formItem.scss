@@ -37,12 +37,12 @@
   }
 
   &.vi-form_err-item {
-    .vi-input_inner {
+    .vi-input_inner, .vi-textarea_inner {
       border-color: $color-danger;
     }
   }
   .vi-form-err_tips {
-    color: red;
+    color: $color-danger;
     font-size: $fs-12;
     @include setPosition(custom) {
       bottom: -18px;

@@ -5,11 +5,12 @@ node_modules
 # dependencies
 # dist
 
-
+# ----- npm ------
 # example
 # md
 # public
 
+# ----- github -----
 lib
 
 # local env files

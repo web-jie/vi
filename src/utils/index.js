@@ -42,6 +42,7 @@ export const removeWindowsEvent = (fn, type = 'keydown') => {
 
 export default {
   install (Vue, options = {}) {
+    dataOptions.ViBus = new Vue()
     Vue.prototype['$VIELEMENT'] = dataOptions
   }
 }

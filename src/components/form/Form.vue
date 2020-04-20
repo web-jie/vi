@@ -10,11 +10,11 @@ export default {
   props: {
     ruleForm: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
     rules: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
     inline: {
       type: Boolean,
@@ -33,16 +33,6 @@ export default {
       default: false
     }
   },
-  watch: {
-    ruleForm: {
-      handler (newval, oldval) {
-        this.$children.forEach(v => {
-          v.getParentData()
-        })
-      },
-      deep: true
-    }
-  },
   methods: {
     validate (callback) {
       const childrenList = this.$children
@@ -54,6 +44,15 @@ export default {
             callback(flagList.every(v => v))
           }
         })
+      })
+    },
+    resetFields () {
+      // this.ruleForm = =
+    },
+    resetValidate () {
+      const childrenList = this.$children
+      childrenList.map(v => {
+        v.errMsg = ''
       })
     }
   }

@@ -13,3 +13,14 @@ export const getParent = (options, parentName) => {
   }
   return parent
 }
+
+export const isEmptyObject = (obj) => {
+  // 判断所传参数是否是对象
+  if (obj === null) return
+  if (typeof obj !== 'object') return
+  if (!Object.keys(obj).length) {
+    return true
+  } else {
+    return false
+  }
+}

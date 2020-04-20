@@ -10,7 +10,7 @@
       :value="value"
       @input="$emit('input', $event.target.value)"
       @focus="$emit('focus', $event)"
-      @blur="$emit('blur', $event)"
+      @blur="onBlur"
       :disabled="disabled"
       :readonly="readonly"
       :maxlength="maxlength"
@@ -28,7 +28,7 @@
       :value="value"
       @input="$emit('input', $event.target.value)"
       @focus="isFocus = true; $emit('focus', $event)"
-      @blur="isFocus = false; $emit('blur', $event)"
+      @blur="onBlur"
       @mouseenter="mouseenter"
       @mouseleave="mouseleave"
       :type="type"
@@ -67,7 +67,8 @@
 </template>
 
 <script>
-import { getPx } from '../../utils/helper'
+import { getPx, isEmptyObject } from '../../utils/helper'
+
 export default {
   name: 'vi-input',
   props: {
@@ -133,11 +134,22 @@ export default {
       default: ''
     }
   },
+  inject: {
+    ViFormItemOptions: {
+      from: 'ViFormItemOptions',
+      default: () => ({})
+    }
+  },
   data () {
     return {
       isHover: false,
       isFocus: false
       // isShowClear: false
+    }
+  },
+  watch: {
+    value () {
+      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('change'))
     }
   },
   created () {
@@ -205,6 +217,11 @@ export default {
     onClearable () {
       this.$emit('input', '')
       this.focus()
+    },
+    onBlur (event) {
+      this.isFocus = false
+      this.$emit('blur', event)
+      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
     },
     focus () {
       this.$refs.input.focus()

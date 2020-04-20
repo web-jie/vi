@@ -1,7 +1,6 @@
 <template>
   <div class="vi-select">
     <vi-input
-    style="width: 100%"
     readonly
     ref="input"
     :value="inputValue"
@@ -9,6 +8,7 @@
     :disabled="disabled"
     :size="size"
     @focus="isShow = true"
+    @blur="onBlur"
     @mouseenter.native="clearable && (isHover = true)"
     @mouseleave.native="clearable && (isHover = false)"
     :placeholder="placeholder">
@@ -41,6 +41,8 @@
 <script>
 // import Velocity from 'velocity-animate'
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
+import { isEmptyObject } from '../../utils/helper'
+
 export default {
   name: 'vi-select',
   props: {
@@ -65,6 +67,12 @@ export default {
   provide () {
     return {
       options: this
+    }
+  },
+  inject: {
+    ViFormItemOptions: {
+      from: 'ViFormItemOptions',
+      default: () => ({})
     }
   },
   data () {
@@ -97,6 +105,8 @@ export default {
     value (val) {
       this.setInputVal()
       this.$emit('change', val)
+      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('change'))
+      // this.ViFormItemOptions.
     }
   },
   mounted () {
@@ -127,8 +137,10 @@ export default {
     onClearcAble () {
       this.$emit('input', '')
     },
+    onBlur () {},
     blur () {
       this.isShow = false
+      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
       this.$refs.input.blur()
     },
     focus () {
