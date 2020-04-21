@@ -1,0 +1,83 @@
+.vi-radio_button {
+  position: relative;
+  display: inline-block;
+  outline: none;
+  &-label {
+    line-height: 1;
+    white-space: normal;
+    vertical-align: middle;
+    display: inline-block;
+    padding: $fs-12 $fs-19;
+    border: 1px solid $color-primary-bd;
+    color: $color-primary-text;
+    font-size: $fs-13;
+    transition: all $duration02;
+    box-sizing: border-box;
+  }
+  &-input {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    @include setPosition(inherit);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+  }
+  &.is-active {
+    .vi-radio_button-label {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      color: $color-white;
+    }
+  }
+  &.is-disabled {
+    .vi-radio_button-label {
+      background-color: $color-white;
+      color: $color-disabled-text;
+      border-color: $color-primary-bd;
+    }
+    &.is-active {
+      .vi-radio_button-label {
+        background-color: $color-disabled;
+      }
+    }
+    .vi-radio_button-input {
+      cursor: not-allowed;
+    }
+  }
+  & + &:not(:last-child) {
+    margin-left: -1px;
+    .vi-radio_button-label {
+      border-right: none;
+    }
+  }
+  &:first-child {
+    .vi-radio_button-label {
+      border-top-left-radius: $fs-4;
+      border-bottom-left-radius: $fs-4;
+    }
+  }
+  &:last-child {
+    .vi-radio_button-label {
+      border-top-right-radius: $fs-4;
+      border-bottom-right-radius: $fs-4;
+    }
+  }
+  @mixin size($first, $two, $size) {
+    color: red;
+    .vi-radio_button-label {
+      padding: $first $two;
+      font-size: $size;
+    }
+  }
+  &_large {
+    @include size($fs-12, $fs-21, $fs-15)
+  }
+  &_small {
+    @include size($fs-10, $fs-17, $fs-14)
+  }
+  &_mini {
+    @include size($fs-7, $fs-10, $fs-12)
+  }
+}

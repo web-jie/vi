@@ -1,76 +1,109 @@
 <template>
-  <label :class="{[prefixCls+'-checkbox']:true,'checked':checkedCls,'disabled':disabled}">
-    <input type="checkbox"
-           :disabled="disabled"
-           v-model="checked"
-           :value="value"
-           @change="_change">
-    <span :class="`${prefixCls}-checkbox-inner`"></span>
-    <span :class="`${prefixCls}-checkbox-text`"
-          v-if="label"
-          v-text="label"></span>
-    <span :class="`${prefixCls}-checkbox-text`"
-          v-else>
-      <slot></slot>
+  <label class="vi-checkbox" role="checkbox" :style="checkBoxStyles" :class="checkboxClasses" >
+    <span class="vi-checkbox_inner-box">
+      <span class="vi-checkbox_inner" :class="innerClasses"></span>
+      <input class="vi-checkbox_input" type="checkbox" @change="change" :checked="active" :disabled="isDisabled" @blur="blur"/>
+    </span>
+    <span class="vi-checkbox_label" >
+      <slot>{{label || value}}</slot>
     </span>
   </label>
 </template>
-<script>
-import emitter from './emitter'
 
+<script>
+import { getParent } from '../../utils/helper'
+import { isEmptyObject } from '../../utils/helper'
 export default {
   name: 'vi-checkbox',
-  mixins: [emitter],
-  data () {
-    return {
-      prefixCls: 'vi',
-      checked: this.modelValue
-    }
-  },
-  watch: {
-    modelValue () {
-      this.checked = this.modelValue
-    }
-  },
-  model: {
-    prop: 'modelValue',
-    event: 'change'
-  },
   props: {
-    disabled: {
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: [String, Boolean, Number],
+      default: ''
+    },
+    block: {
       type: Boolean,
       default: false
     },
-    label: String,
-    modelValue: {},
-    value: null,
-    validateEvent: {
+    disabled:{
       type: Boolean,
-      default: true
-    }
+      default: false
+    },
+    isIndeterminate: {
+      type: Boolean,
+      default: false
+    },
   },
-  components: {},
-  methods: {
-    _change (e) {
-      this.$emit('change', this.checked)
-      if (this.validateEvent) {
-        this.dispatch('formItem', `${this.prefixCls}.form.change`, [this.checked, e])
-      }
+  inject: {
+    ViFormItemOptions: {
+      from: 'ViFormItemOptions',
+      default: () => ({})
     }
   },
   computed: {
-    checkedCls () {
-      // 当value=v-model或v-model中包含了value值时为true
-      if (typeof this.modelValue === 'object') {
-        return this.modelValue.indexOf(this.value) !== -1
-      } else {
-        // modelValue值为true为勾选状态
-        return !!this.modelValue
+    parentValue () {
+      return getParent(this, 'vi-checkbox-group')
+    },
+    checkBoxStyles() {
+      return {
+        display: this.block && 'block'
       }
+    },
+    checkboxClasses() {
+      return [
+        this.active && 'is-active',
+        this.isDisabled && 'is-disabled'
+      ]
+    },
+    innerClasses() {
+      return [
+        this.isIndeterminateStatus && 'is-indeterminate'
+      ]
+    },
+    isDisabled() {
+      return (this.parentValue.disabled || this.disabled)
+    },
+    active () {
+      return this.parentValue.value.some(v => v === this.value) || (this.isIndeterminate && this.isAllSelect)
+    },
+    isAllSelect() {
+      return this.childrenList.filter(v => !v.isIndeterminate).every(v => this.parentValue.value.includes(v.value))
+    },
+    isIndeterminateStatus() {
+      return this.isIndeterminate && this.parentValue.value.length && !this.isAllSelect
     }
   },
-  mounted () {
+  data() {
+    return {
+      childrenList: []
+    }
   },
-  filters: {}
+  mounted() {
+    this.childrenList = this.parentValue.$children || []
+  },
+  methods: {
+    blur() {
+      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
+    },
+    change(e) {
+      if (this.isIndeterminate) {
+        if (this.isAllSelect) {
+          this.parentValue.getData(this, [])
+        } else {
+          this.childrenList.filter(v => !v.isIndeterminate).map(v => {
+            if (!this.parentValue.value.includes(v.value)) {
+              this.parentValue.getData(v)
+            }
+          })
+        }
+        return
+      }
+      if (!this.value) return
+      this.parentValue.getData(this)
+    }
+  },
 }
 </script>

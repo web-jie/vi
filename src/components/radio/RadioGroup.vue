@@ -12,6 +12,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    size: {
+      type: String,
+      default: ''
     }
   },
   watch: {

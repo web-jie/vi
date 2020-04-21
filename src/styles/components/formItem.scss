@@ -8,8 +8,10 @@
       text-align: $position;
     }
   }
+  line-height: 1.2;
   position: relative;
   margin-bottom: 25px;
+  vertical-align: middle;
   &.vi-form-item_inline {
     display: inline-block;
     margin-right: $fs-14;

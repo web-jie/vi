@@ -22,6 +22,7 @@ export default {
         type: '0',
         delivery: true,
         radio: 1,
+        checkbox: ['1', '2'],
         remark: ''
       },
        ruleForm2: {
@@ -37,6 +38,7 @@ export default {
         type: '',
         delivery: true,
         radio: 1,
+        checkbox: [],
         remark: ''
       },
       ruleForm5: {
@@ -94,6 +96,7 @@ export default {
         'type': [{message: '食物类型不能为空', required: true}],
         'delivery': [{ required: true}],
         'radio': [{ required: true}],
+        'checkbox': [{required: true, message: '配送时间段不能为空'}],
         'remark': [{message: '食物备注不能为空', required: true}],
       },
       typeList: [{
@@ -142,7 +145,7 @@ export default {
 ### 基础用法
 ::: demo
 ``` html
-<vi-form>
+<vi-form label-width="100" label-position="left">
   <vi-form-item label="食物名称">
     <vi-input width="260px" v-model="ruleForm1.name"></vi-input>
   </vi-form-item>
@@ -161,6 +164,13 @@ export default {
       <vi-radio label="地点3" :value="3"></vi-radio>
     </vi-radio-group>
   </vi-form-item>
+  <vi-form-item label="配送时间段">
+    <vi-checkbox-group v-model="ruleForm1.checkbox">
+      <vi-checkbox value="1">09:00 - 11:00</vi-checkbox>
+      <vi-checkbox value="2">13:00 - 15:00</vi-checkbox>
+      <vi-checkbox value="3">16:00 - 18:00</vi-checkbox>
+    </vi-checkbox-group>
+  </vi-form-item>
   <vi-form-item label="食物备注">
     <vi-input v-model="ruleForm1.remark" type="textarea" width="260px"></vi-input>
   </vi-form-item>
@@ -178,6 +188,7 @@ export default {
         type: '0',
         delivery: true,
         radio: 1,
+        checkbox: ['1', '2'],
         remark: ''
       },
       typeList: [{
@@ -264,7 +275,7 @@ export default {
 在防止用户犯错的前提下，尽可能让用户更早地发现并纠正错误。通过传入ruleForm表单数据对象，对表单字段进行校验
 ::: demo
 ``` html
-<vi-form :ruleForm="ruleForm4" :rules="rules1" ref="ruleForm4">
+<vi-form :ruleForm="ruleForm4" :rules="rules1" ref="ruleForm4" label-width="100">
   <vi-form-item label="食物名称" prop="name">
     <vi-input width="260px" v-model="ruleForm4.name"></vi-input>
   </vi-form-item>
@@ -283,6 +294,13 @@ export default {
       <vi-radio label="地点3" :value="3"></vi-radio>
     </vi-radio-group>
   </vi-form-item>
+  <vi-form-item label="配送时间段" prop="checkbox">
+    <vi-checkbox-group v-model="ruleForm4.checkbox">
+      <vi-checkbox value="1">09:00 - 11:00</vi-checkbox>
+      <vi-checkbox value="2">13:00 - 15:00</vi-checkbox>
+      <vi-checkbox value="3">16:00 - 18:00</vi-checkbox>
+    </vi-checkbox-group>
+  </vi-form-item>
   <vi-form-item label="食物备注" prop="remark">
     <vi-input v-model="ruleForm4.remark" type="textarea" width="260px"></vi-input>
   </vi-form-item>
@@ -300,6 +318,7 @@ export default {
         type: '',
         delivery: true,
         radio: 1,
+        checkbox: [],
         remark: ''
       },
       rules1: {
@@ -307,6 +326,7 @@ export default {
         'type': [{message: '食物类型不能为空', required: true}],
         'delivery': [{ required: true}],
         'radio': [{ required: true}],
+        'checkbox': [{required: true, message: '配送时间段不能为空'}],
         'remark': [{message: '食物备注不能为空', required: true}],
       },
     }
