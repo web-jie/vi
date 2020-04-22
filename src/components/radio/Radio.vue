@@ -29,7 +29,7 @@ export default {
     },
     innerClasses () {
       return [
-        
+
       ]
     },
     radioClasses () {
@@ -38,6 +38,6 @@ export default {
         this.active && 'is-active'
       ]
     }
-  },
+  }
 }
 </script>

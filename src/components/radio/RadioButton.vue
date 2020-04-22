@@ -13,13 +13,13 @@ export default {
   name: 'vi-radio-button',
   mixins: [mixin],
   computed: {
-    radioButtonClasses() {
+    radioButtonClasses () {
       return [
         this.active && 'is-active',
         this.parentValue.size && `vi-radio_button_${this.parentValue.size}`,
         this.isDisabled && 'is-disabled'
       ]
     }
-  },
+  }
 }
 </script>

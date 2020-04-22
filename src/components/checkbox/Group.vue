@@ -32,7 +32,7 @@ export default {
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       this.$emit('change', val)
       !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('change'))
     }
@@ -51,6 +51,6 @@ export default {
         this.$emit('input', this.value)
       }
     }
-  },
+  }
 }
 </script>

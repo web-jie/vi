@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { getParent } from '../../utils/helper'
-import { isEmptyObject } from '../../utils/helper'
+import { getParent, isEmptyObject } from '../../utils/helper'
+
 export default {
   name: 'vi-checkbox',
   props: {
@@ -28,14 +28,14 @@ export default {
       type: Boolean,
       default: false
     },
-    disabled:{
+    disabled: {
       type: Boolean,
       default: false
     },
     isIndeterminate: {
       type: Boolean,
       default: false
-    },
+    }
   },
   inject: {
     ViFormItemOptions: {
@@ -47,48 +47,48 @@ export default {
     parentValue () {
       return getParent(this, 'vi-checkbox-group')
     },
-    checkBoxStyles() {
+    checkBoxStyles () {
       return {
         display: this.block && 'block'
       }
     },
-    checkboxClasses() {
+    checkboxClasses () {
       return [
         this.active && 'is-active',
         this.isDisabled && 'is-disabled'
       ]
     },
-    innerClasses() {
+    innerClasses () {
       return [
         this.isIndeterminateStatus && 'is-indeterminate'
       ]
     },
-    isDisabled() {
+    isDisabled () {
       return (this.parentValue.disabled || this.disabled)
     },
     active () {
       return this.parentValue.value.some(v => v === this.value) || (this.isIndeterminate && this.isAllSelect)
     },
-    isAllSelect() {
+    isAllSelect () {
       return this.childrenList.filter(v => !v.isIndeterminate).every(v => this.parentValue.value.includes(v.value))
     },
-    isIndeterminateStatus() {
+    isIndeterminateStatus () {
       return this.isIndeterminate && this.parentValue.value.length && !this.isAllSelect
     }
   },
-  data() {
+  data () {
     return {
       childrenList: []
     }
   },
-  mounted() {
+  mounted () {
     this.childrenList = this.parentValue.$children || []
   },
   methods: {
-    blur() {
+    blur () {
       !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
     },
-    change(e) {
+    change (e) {
       if (this.isIndeterminate) {
         if (this.isAllSelect) {
           this.parentValue.getData(this, [])
@@ -104,6 +104,6 @@ export default {
       if (!this.value) return
       this.parentValue.getData(this)
     }
-  },
+  }
 }
 </script>

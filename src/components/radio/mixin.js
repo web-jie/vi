@@ -14,7 +14,7 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
+    }
   },
   computed: {
     parentValue () {
@@ -25,7 +25,7 @@ export default {
     },
     active () {
       return this.parentValue.value === this.value
-    },
+    }
   },
   methods: {
     change () {
