@@ -5,20 +5,36 @@
         show1: false,
         show2: false,
         show3: false,
+        show4: false,
+        show5: false,
         outerVisible: false,
         innerVisible: false,
-        type: ''
-      }
-    },
-    watch: {
-      show1(val) {
-        // console.log(val, '787878jfkdsfkdsfdsf')
+        type: '',
+
+        ruleForm1: {
+          name: '',
+          type: '0',
+          delivery: true,
+          radio: 1,
+          checkbox: ['1', '2'],
+          remark: ''
+        },
+        typeList: [{
+          label: '蔬菜',
+          value: '0'
+        }, {
+          label: '水果',
+          value: '1'
+        }, {
+          label: '牛奶',
+          value: '2'
+        }, {
+          label: '零食',
+          value: '3'
+        }]
       }
     },
     methods: {
-      onOpen1 () {
-        this.show1 = true
-      },
       confirm() {
         this.$message.success(' 单机了确定')
       },
@@ -30,16 +46,27 @@
         this.show2 = true
       },
 
-      onOpen2() {
-        this.show3 = true
+      beforeClose(next) {
+        this.$confirm({
+          title: '提示',
+          content: '确定关闭弹窗？',
+          type: 'confirm',
+          isCloseEsc: true
+        }).then(_ => {
+          next()
+        })
       },
 
-      onCancel() {
-        this.show3 = false
-      },
-      onConfirm() {
-        this.show3 = false
-      },
+      beforeClose1(next) {
+        this.$confirm({
+          title: '提示',
+          content: '确定放弃填写表单？',
+          type: 'confirm',
+          isCloseEsc: true,
+        }).then(_ => {
+          next()
+        })
+      }
     }
   }
 </script>
@@ -49,7 +76,7 @@
 ### 基本用法
 ::: demo
 ``` html
-<vi-button @click="onOpen1">打开</vi-button>
+<vi-button @click="show1 = true">打开</vi-button>
 
 <vi-dialog v-model="show1" :confirm="confirm" :cancel="cancel">
   <p>对话框内容</p>
@@ -65,9 +92,6 @@
       }
     },
     methods: {
-      onOpen1 () {
-        this.show1 = true
-      },
       confirm() {
         this.$message.success('单击了确定')
       },
@@ -128,7 +152,7 @@
 通过传入slot， 让dialog更具多样化
 ::: demo
 ``` html
-<vi-button @click="onOpen2">打开</vi-button>
+<vi-button @click="show3 = true">打开</vi-button>
 <vi-dialog 
   title="自定义内容"
   v-model="show3">
@@ -139,8 +163,8 @@
     <p>一段底部文字</p>
   </template>
   <template slot="button">
-    <vi-button @click="onCancel">取消</vi-button>
-    <vi-button type="primary" @click="onConfirm">确定</vi-button>
+    <vi-button @click="show3 = false">取消</vi-button>
+    <vi-button type="primary" @click="show3 = false">确定</vi-button>
   </template>
 </vi-dialog>
 
@@ -151,17 +175,6 @@
         show3: false
       }
     },
-    methods: {
-      onOpen2() {
-        this.show3 = true
-      },
-      onCancel() {
-        this.show3 = false
-      },
-      onConfirm() {
-        this.show3 = false
-      },
-    }
   }
 </script>
 ```
@@ -175,14 +188,12 @@
 <vi-dialog 
   title="标题"
   width="900px"
-  msg="msg"
   v-model="outerVisible">
   <p>第一层dialog</p>
   <vi-dialog 
     width="650px"
     append-to-body
     title="标题"
-    msg="msg1"
     v-model="innerVisible">
     <p>第二层dialog</p>
     <template slot="button">
@@ -209,6 +220,134 @@
 ```
 :::
 
+### 关闭前回调
+通过传入before-close属性， 来对弹框关闭之前做一些处理
+::: demo
+``` html
+<vi-button @click="show4 = true">打开</vi-button>
+
+<vi-dialog v-model="show4" :before-close="beforeClose">
+  <p>对话框内容111</p>
+  <p>对话框内容</p>
+  <p>对话框内容</p>
+  <template slot="button">
+    <vi-button @click="show4 = false">取消</vi-button>
+  </template>
+</vi-dialog>
+
+<script>
+  export default {
+    data () {
+      return {
+        show4: false
+      }
+    },
+    methods: {
+      beforeClose(next) {
+        this.$confirm({
+          title: '提示',
+          content: '确定关闭弹窗？',
+          type: 'confirm',
+          isCloseEsc: true
+        }).then(_ => {
+          next()
+        })
+      }
+    }
+  }
+</script>
+```
+:::
+
+### 嵌套表单
+::: demo
+``` html
+<vi-button @click="show5 = true">打开</vi-button>
+
+<vi-dialog v-model="show5" width="700" title="配送信息" :before-close="beforeClose1">
+  <vi-form label-width="100" label-position="left">
+    <vi-form-item label="食物名称">
+      <vi-input width="260px" v-model="ruleForm1.name"></vi-input>
+    </vi-form-item>
+    <vi-form-item label="食物类型">
+      <vi-select v-model="ruleForm1.type">
+        <vi-option v-for="(item, index) in typeList" :key="index" :label="item.label" :value="item.value" />
+      </vi-select>
+    </vi-form-item>
+    <vi-form-item label="立即食用">
+      <vi-switch v-model="ruleForm1.delivery"></vi-switch>
+    </vi-form-item>
+    <vi-form-item label="地点配送">
+      <vi-radio-group v-model="ruleForm1.radio">
+        <vi-radio label="地点1" :value="1"></vi-radio>
+        <vi-radio label="地点2" :value="2"></vi-radio>
+        <vi-radio label="地点3" :value="3"></vi-radio>
+      </vi-radio-group>
+    </vi-form-item>
+    <vi-form-item label="配送时间段">
+      <vi-checkbox-group v-model="ruleForm1.checkbox">
+        <vi-checkbox value="1">09:00 - 11:00</vi-checkbox>
+        <vi-checkbox value="2">13:00 - 15:00</vi-checkbox>
+        <vi-checkbox value="3">16:00 - 18:00</vi-checkbox>
+      </vi-checkbox-group>
+    </vi-form-item>
+    <vi-form-item label="食物备注">
+      <vi-input v-model="ruleForm1.remark" type="textarea" width="260px"></vi-input>
+    </vi-form-item>
+  </vi-form>
+  <template v-slot:footer>请填写上面的配送信息</template>
+  <template slot="button">
+    <vi-button @click="show5 = false">取消</vi-button>
+    <vi-button @click="show5 = false" type="success">确定</vi-button>
+  </template>
+</vi-dialog>
+
+<script>
+  export default {
+    data () {
+      return {
+        show5: false,
+        ruleForm1: {
+          name: '',
+          type: '0',
+          delivery: true,
+          radio: 1,
+          checkbox: ['1', '2'],
+          remark: ''
+        },
+        typeList: [{
+          label: '蔬菜',
+          value: '0'
+        }, {
+          label: '水果',
+          value: '1'
+        }, {
+          label: '牛奶',
+          value: '2'
+        }, {
+          label: '零食',
+          value: '3'
+        }]
+      }
+    },
+    methods: {
+      beforeClose1(next) {
+        this.$confirm({
+          title: '提示',
+          content: '确定放弃填写表单？',
+          type: 'confirm',
+          isCloseEsc: true
+        }).then(_ => {
+          next()
+        })
+      }
+    },
+  }
+</script>
+
+```
+:::
+
 
 ## API
 ### Dialog Attributes
@@ -231,13 +370,14 @@
 |cancel-text|String|取消按钮文字|-|取消|
 |is-close-esc|Boolean|是否可以通过按下 ESC 关闭|-|true|
 |append-to-body|Boolean|Dialog 自身是否插入至 body 元素上。嵌套的 Dialog 必须指定该属性并赋值为 true|-|false|
+|before-close|function(next)，next 用于关闭 Dialog|关闭前的回调，会暂停 Dialog 的关闭|-|-|
 
 ### Dialog Events
 |事件名称|说明|回调参数|
 |-|-|-|
 |open|Dialog 打开的回调|-|
 |opened|Dialog 打开动画结束时的回调|-|
-|close|Dialog 关闭动画结束时的回调|-|
+|close|Dialog 关闭的回调|-|
 |closed|Dialog 关闭动画结束时的回调|-|
 
 ### Dialog Slot

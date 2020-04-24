@@ -81,7 +81,7 @@ export default {
 对```vi-checkbox-group```设置indeterminate状态， 以达到全选的目的
 ::: demo
 ``` html
-<vi-checkbox-group v-model="checkbox4" indeterminate>
+<vi-checkbox-group v-model="checkbox4" indeterminate >
   <vi-checkbox value="1" label="香蕉"></vi-checkbox>
   <vi-checkbox value="2" label="苹果"></vi-checkbox>
   <vi-checkbox value="3" label="牛奶"></vi-checkbox>

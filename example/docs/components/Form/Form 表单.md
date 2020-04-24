@@ -114,8 +114,7 @@ export default {
       }],
 
       checkUserRules: [
-        {message: '账号不能为空', validator: checkUser },
-        {required: true}
+        {message: '账号不能为空', validator: checkUser, required: true },
       ],
       checkPassRules: [
         {validator: checkPass, required: true}
@@ -388,8 +387,7 @@ export default {
         pass: ''
       },
       checkUserRules: [
-        {message: '账号不能为空', validator: checkUser },
-        {required: true}
+        {message: '账号不能为空', validator: checkUser, required: true },
       ],
       checkPassRules: [
         {validator: checkPass, required: true}
@@ -417,7 +415,7 @@ export default {
 :::
 
 ### 更加便捷的校验方式
-如果不想定义多个校验函数， 来执行自定义校验规则， 而又想校验表单数据，来满足于我们的日常需求， 这似乎而言好像不太实际， 没关系，<span style="font-weight: bold;">Vi-element-vue</span>已经实现了这一点， 通过传入正则， 让组件内部自校验， 而你在外界， 不需要做任何操作。这将极大的减少了开发的生产力。这也是Vi-element-vue Form组件最大的特点之一。
+如果不想定义多个校验函数， 来执行自定义校验规则， 而又想校验表单数据，来满足于我们的日常需求， 这似乎而言好像不太实际， 然而，<span style="font-weight: bold;">Vi-element-vue</span>已经实现了这一点， 通过传入正则， 让组件内部自校验， 而你在外界， 不需要做任何操作。这将极大的减少了开发的生产力。这也是Vi-element-vue Form组件最大的特点之一。
 ::: demo
 ``` html
 <vi-form label-width="100" :ruleForm="ruleForm6" ref="ruleForm6">
@@ -635,7 +633,7 @@ export default {
 |ruleForm|Object|表单数据对象|-|-|
 |rules|Object|表单验证规则|-|-|
 |inline|Boolean|是否为行内表单|-|false|
-|label-position|String|对齐方式|right|left / right / top|
+|label-position|String|对齐方式|left / right / top|right|
 |label-width|String / Number|标签宽度|-|80|
 |is-custom-errtip|Boolean|是否自定义错误提示|-|false|
 

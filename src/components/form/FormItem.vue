@@ -133,28 +133,6 @@ export default {
             fn && fn(this.isSuccessFlag)
           }
         }
-        // 如果有不通过的情况下， 则不继续往下校验
-        // if (!this.errMsg) {
-        //   // 存在不为空属性 ,  则校验不为空
-        //   if (v.required) {
-        //     this.implementCallback(v, /\S/)
-        //     fn && fn(this.isSuccessFlag)
-        //   }
-        //   // 如果有自定方法， 则优先校验
-        //   if (v.validator && typeof v.validator === 'function') {
-        //     v.validator(v, this.formValue, check.bind(v))
-        //   } else {
-        //     // 如果有正则
-        //     if (v.reg) {
-        //       this.implementCallback(v, v.reg)
-        //       fn && fn(this.isSuccessFlag)
-        //     }
-        //   }
-        // } else {
-        //   // 如果有在错误状态， 直接返回false
-        //   fn && fn(false)
-        //   v.implement && v.implement(vm.isSuccessFlag, vm.errMsg)
-        // }
       })
     },
 

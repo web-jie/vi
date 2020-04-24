@@ -1,0 +1,53 @@
+.vi-messagebox {
+  @include setPosition(inherit, $position-box: fixed);
+  text-align: center;
+  &_main {
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    // backface-visibility: hidden;
+    padding: $fs-15 $fs-15 $fs-12;
+    width: 420px;
+    text-align: left;
+    .vi-messageBox_main-title {
+      color: $color-primary-text;
+      font-weight: bold;
+      font-size: $fs-16;
+      margin-bottom: $fs-18;
+    }
+    .vi-messageBox_main-content {
+      font-size: $fs-14;
+      color: $color-primary-text;
+      letter-spacing: $fs-1;
+      // vertical-align: middle;
+    }
+    .vi-messageBox_main-footer {
+      margin-top: $fs-20;
+      text-align: right;
+    }
+    .vi-messageBox_main-confirm-content {
+      display: flex;
+      align-items: center;
+      .vi-confirm_text {
+        margin-left: $fs-5;
+      }
+    }
+  }
+  &::after {
+    content: "";
+    display: inline-block;
+    height: 70%;
+    width: 0;
+    vertical-align: middle;
+  }
+  //淡入淡出
+  &-enter, &-leave-to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  &-enter-active, &-leave-active {
+    transition: all $duration03;
+  }
+}

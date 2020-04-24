@@ -1,7 +1,9 @@
 
 const dataOptions = {
   zIndex: 1000,
-  dialogList: []
+  dialogList: [],
+  messageBoxList: [],
+  callbackList: []
 }
 
 const getZIndex = function (type = '+') {
@@ -19,30 +21,48 @@ const setZIndex = function (type = '+', val = 1) {
 dataOptions['getZIndex'] = getZIndex
 dataOptions['setZIndex'] = setZIndex
 
-// const callback = (e) => {
-// }
-
-var callbackFn
+let eventsOptions = {}
+let eventsList = []
 function callback (e) {
-  callbackFn && callbackFn(e)
+  const lastEventType = eventsList[eventsList.length - 1]
+  const lastEvent = eventsOptions[lastEventType]
+  e.type === lastEventType && lastEvent[lastEvent.length - 1].fn(e)
+}
+export const bindWindowsEvent = (fn, componentName, type = 'keydown') => {
+  if (dataOptions['is' + type]) {
+    eventsOptions[type].push({
+      key: componentName,
+      fn,
+      type
+    })
+  } else {
+    dataOptions['is' + type] = true
+    eventsOptions[type] = []
+    eventsOptions[type].push({
+      key: componentName,
+      fn,
+      type
+    })
+    document.addEventListener(type, callback, true)
+  }
+  eventsList.push(type)
 }
 
-export const bindWindowsEvent = (fn, type = 'keydown') => {
-  if (dataOptions['is' + type]) return
-  dataOptions['is' + type] = true
-  callbackFn = fn
-  document.addEventListener(type, callback, false)
-}
-
-export const removeWindowsEvent = (fn, type = 'keydown') => {
-  if (!dataOptions['is' + type]) return
-  dataOptions['is' + type] = false
-  document.removeEventListener(type, callback, false)
+export const removeWindowsEvent = (fn, componentName, type = 'keydown') => {
+  eventsOptions[type].pop()
+  if (!eventsOptions[type].length) {
+    document.removeEventListener(type, callback, true)
+    delete eventsOptions[type]
+    dataOptions['is' + type] = false
+  }
+  const index = eventsList.lastIndexOf(type)
+  if (index > -1) {
+    eventsList.splice(index, 1)
+  }
 }
 
 export default {
   install (Vue, options = {}) {
-    dataOptions.ViBus = new Vue()
     Vue.prototype['$VIELEMENT'] = dataOptions
   }
 }

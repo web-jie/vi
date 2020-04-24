@@ -5,10 +5,10 @@
     @after-enter="afterEnter"
     :name="`vi-dialog-${animation}`"
     appear>
-    <div class="vi-dialog" v-show="show" @click.self="closeOnClickOverlay && (show = false)" :style="viDialogStyles" :msg="msg" ref="box" role="dialog">
+    <div class="vi-dialog" v-show="value" @click.self="closeOnClickOverlay && handClose($event)" :style="viDialogStyles" role="dialog">
       <!--@click.self="closeOnClickOverlay && onClose()"-->
       <div class="vi-dialog_main" :style="boxStyles">
-        <div class="vi-dialog_close" @click="show = false" v-if="isCloseIcon">
+        <div class="vi-dialog_close" @click="handClose" v-if="isCloseIcon">
           <vi-icon name="close" size="18" color="#999"></vi-icon>
         </div>
         <div class="vi-dialog_header" :class="headerClasses" v-if="isHeader">
@@ -38,10 +38,10 @@ import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { getPx } from '../../utils/helper'
 export default {
   name: 'vi-dialog',
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
+  // model: {
+  //   prop: 'value',
+  //   event: 'change'
+  // },
   props: {
     value: {
       type: Boolean,
@@ -105,7 +105,7 @@ export default {
       type: Boolean,
       default: false
     },
-    msg: [String]
+    beforeClose: null
   },
   computed: {
     viDialogStyles () {
@@ -132,9 +132,6 @@ export default {
   },
   watch: {
     value (val) {
-      this.show = val
-    },
-    show (val) {
       if (val) {
         this.$viMask()
         this.isCloseEsc && this.keydown()
@@ -144,14 +141,10 @@ export default {
         this.$emit('open')
       } else {
         this.$VIELEMENT.dialogList.pop()
-        !this.$VIELEMENT.dialogList.length && removeWindowsEvent()
+        this.isCloseEsc && removeWindowsEvent(_ => {}, 'dialog')
         this.$emit('close')
       }
-      this.$emit('change', val)
     }
-  },
-  created () {
-    this.show = this.value
   },
   mounted () {
     if (this.appendToBody) {
@@ -160,25 +153,45 @@ export default {
   },
   data () {
     return {
-      show: false,
-      masks: null,
-      styles: {},
-      showBox: false,
       zIndex: this.$VIELEMENT.getZIndex()
     }
   },
   methods: {
+    handClose (e) {
+      if (this.beforeClose) {
+        this.beforeClose(() => {
+          this.$emit('input', false)
+        })
+      } else {
+        this.$emit('input', false)
+      }
+    },
     keydown (e) {
       bindWindowsEvent((e) => {
-        this.keydownFn(e)
-      })
+        this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].isCloseEsc && this.keydownFn(e)
+      }, 'dialog')
     },
     keydownFn (e) {
-      e.keyCode === 27 && (this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].show = false)
+      if (e.keyCode === 27) {
+        if (this.beforeClose) {
+          this.beforeClose(() => {
+            this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].$emit('input', false)
+          })
+        } else {
+          this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].$emit('input', false)
+        }
+      }
     },
     onCancel () {
-      this.show = false
-      this.cancel()
+      if (this.beforeClose) {
+        this.beforeClose(() => {
+          this.$emit('input', false)
+          this.cancel()
+        })
+      } else {
+        this.$emit('input', false)
+        this.cancel()
+      }
     },
     beforeLeave (el, done) {
       this.$VIELEMENT.setZIndex('-')

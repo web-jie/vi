@@ -8,6 +8,8 @@
       text-align: $position;
     }
   }
+  display: flex;
+  align-items: center;
   line-height: 1.2;
   position: relative;
   margin-bottom: 25px;
@@ -23,6 +25,7 @@
     @include position()
   }
   &.vi-form-item-top {
+    display: block;
     .vi-form_label {
       position: relative;
       margin-bottom: $fs-6;
@@ -36,6 +39,7 @@
   .vi-form_inner {
     position: relative;
     font-size: $fs-14;
+    line-height: $fs-20;
   }
 
   &.vi-form_err-item {

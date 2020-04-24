@@ -94,7 +94,7 @@ export default {
             this.blur()
           }
           this.isFirstFlag = false
-        }, 'click')
+        }, 'select', 'click')
         this.$nextTick(() => {
           this.isFirstScroll && (this.$refs['select_content'].scrollTop = (this.currIndex > 2 ? (this.currIndex - 3) : 0) * 37)
         })
@@ -106,7 +106,6 @@ export default {
       this.setInputVal()
       this.$emit('change', val)
       !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('change'))
-      // this.ViFormItemOptions.
     }
   },
   mounted () {
@@ -160,7 +159,7 @@ export default {
     },
     afterLeave () {
       this.isFirstFlag = true
-      removeWindowsEvent(() => {}, 'click')
+      removeWindowsEvent(() => {}, 'select', 'click')
     }
   }
 }
