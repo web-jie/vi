@@ -1,6 +1,6 @@
 {
   "name": "vi-element-vue",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "private": false,
   "main": "lib/index.umd.min.js",
   "description": "Component library based on Vue",

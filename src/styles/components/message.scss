@@ -1,7 +1,3 @@
-@mixin setColors ($type) {
-  background-color: getBgLightColors($type);
-  color: getBasicColors($type);
-}
 
 .#{$prefix}-message {
   position: fixed;
@@ -16,8 +12,25 @@
   min-width: 360px;
   display: flex;
   align-items: center;
+  transition: top $duration03;
+  @mixin setColors ($type) {
+    background-color: getBgLightColors($type);
+    color: getBasicColors($type);
+  }
   &_type-icon {
     margin-right: 5px;
+    .vi-message_icon-success {
+      @include setColors(success)
+    }
+    .vi-message_icon-info {
+      @include setColors(info)
+    }
+    .vi-message_icon-warning {
+      @include setColors(warning)
+    }
+    .vi-message_icon-danger {
+      @include setColors(danger)
+    }
   }
   &_content {
     flex: 1;
@@ -43,5 +56,12 @@
   }
   &_danger {
     @include setColors(danger)
+  }
+
+  &-enter-active, &-leave-active {
+    transition: all $duration03;
+  }
+  &-enter, &-leave-to {
+    opacity: 0;
   }
 }

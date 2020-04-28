@@ -3,7 +3,7 @@ const dataOptions = {
   zIndex: 1000,
   dialogList: [],
   messageBoxList: [],
-  callbackList: []
+  noticeationsList: []
 }
 
 const getZIndex = function (type = '+') {

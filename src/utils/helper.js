@@ -24,3 +24,10 @@ export const isEmptyObject = (obj) => {
     return false
   }
 }
+
+export const iconType =  {
+  'success': 'checked',
+  'warning': 'warning',
+  'danger': 'error',
+  'info': 'info'
+}

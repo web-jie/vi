@@ -1,0 +1,83 @@
+.vi-noticeation {
+  @mixin noticeationBd($color) {
+    border-left: $fs-5 solid $color;
+  }
+  @mixin setColors ($type) {
+    color: getBasicColors($type);
+  }
+  @include setPosition(custom, $position-box: fixed) {
+    right: $fs-10;
+  }
+  background-color: $color-white;
+  width: 330px;
+  padding: $fs-15 $fs-26 $fs-15 $fs-15;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+  border-radius: $fs-8;
+  display: flex;
+  transition: top $duration03;
+  &_content {
+    position: relative;
+    flex: 1;
+    color: $color-primary-text;
+    .vi-noticeation_title {
+      font-weight: 600;
+      font-size: $fs-14;
+    }
+    .vi-noticeation_main {
+      color: $color-active-text;
+      font-size: $fs-13;
+      margin-top: $fs-10;
+      line-height: 1.4;
+    }
+    .vi-noticeation_close-icon {
+      cursor: pointer;
+      @include setPosition(custom) {
+        top: 0;
+        right: 0;
+        transform: translateX(100%);
+      }
+    }
+  }
+  &.vi-noticeation_alert {
+    @include noticeationBd($color-primary)
+  }
+  &.vi-noticeation_success {
+    @include noticeationBd($color-success)
+  }
+  &.vi-noticeation_info {
+    @include noticeationBd($color-info)
+  }
+  &.vi-noticeation_warning {
+    @include noticeationBd($color-warning)
+  }
+  &.vi-noticeation_danger {
+    @include noticeationBd($color-danger)
+  }
+
+
+  &-enter-active, &-leave-active {
+    transition: all $duration05;
+  }
+  &-enter, &-leave-to {
+    right: 0;
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  .vi-noticeation_status-icon {
+    margin-right: $fs-10;
+    .vi-noticeation_icon-success {
+      @include setColors(success)
+    }
+    .vi-noticeation_icon-info {
+      @include setColors(info)
+    }
+    .vi-noticeation_icon-warning {
+      @include setColors(warning)
+    }
+    .vi-noticeation_icon-danger {
+      @include setColors(danger)
+    }
+  }
+}

@@ -30,14 +30,16 @@
       onSuccess1 () {
         this.$message({
           content: '这是一段成功内容',
-          isClose: true
+          isClose: true,
+          duration: 0
         })
       },
       onInfo1 () {
         this.$message({
           content: '这是一段提示内容',
           type: 'info',
-          isClose: true
+          isClose: true,
+          duration: 0
         })
       },
 
@@ -112,7 +114,7 @@
 ```
 :::
 
-### 可关闭
+### 不会自动关闭
 <p style="font-size: 14px">右侧显示关闭按钮</p>
 
 
@@ -129,14 +131,16 @@
       onSuccess1 () {
         this.$message({
           content: '这是一段成功内容',
-          isClose: true
+          isClose: true,
+          duration: 0
         })
       },
       onInfo1 () {
         this.$message({
           content: '这是一段提示内容',
           type: 'info',
-          isClose: true
+          isClose: true,
+          duration: 0
         })
       }
     }
@@ -233,9 +237,9 @@
 |content|String|消息文字|-|-|
 |top|Number|Message 距离窗口顶部的偏移量|-|30|
 |duration|Number|显示时长，设置为0不会自动关闭|-|false|
-|is-close|Boolean|是否显示关闭按钮， 设置为true不会自动关闭|-|false|
-|is-icon|Boolean|是否显示左侧图标|-|true|
-|before-close|Function|关闭时的回调函数, 参数为被关闭的 message 实例|-|-|
+|isClose|Boolean|是否显示关闭按钮|-|false|
+|isicon|Boolean|是否显示左侧图标|-|true|
+|beforeclose|Function|关闭时的回调函数, 参数为被关闭的 message 实例|-|-|
 
 ### 方法
 方法名|参数|说明|

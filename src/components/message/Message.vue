@@ -1,8 +1,8 @@
 <template>
-  <transition @beforeEnter="beforeEnter" @enter="enter" @afterEnter="afterEnter" appear>
-    <div class="vi-message" :style="styleles" :class="classes">
+  <transition name="vi-message" appear>
+    <div class="vi-message" :style="styleles" :class="classes" v-if="show">
       <div class="vi-message_type-icon" v-if="isIcon">
-        <vi-icon :name="iconType[type]" size="18"></vi-icon>
+        <vi-icon :name="iconType[type]" size="18" :class="iconClasses"></vi-icon>
       </div>
       <div class="vi-message_content">{{content}}</div>
       <div class="vi-message_icon" @click="close($el, 0)" v-if="isClose">
@@ -14,17 +14,25 @@
 
 <script>
 import Velocity from 'velocity-animate'
+import { iconType } from '../../utils/helper'
+import { getPx } from '../../utils/helper'
 export default {
   name: 'vi-message',
   computed: {
+    iconClasses() {
+      return [
+        `vi-message_icon-${this.type}`
+      ]
+    },
     styleles () {
       return {
-        zIndex: this.$VIELEMENT.getZIndex() + 1
+        zIndex: this.$VIELEMENT.getZIndex() + 1,
+        top: getPx(this.top),
       }
     },
     classes () {
       return [
-        `vi-message_${this.type}`
+        `vi-message_${this.type}`,
       ]
     }
   },
@@ -33,54 +41,35 @@ export default {
       type: 'success',
       content: '',
       closeFn: null,
-      componentTop: '',
       duration: 2000,
       isClose: false,
       beforeClose: null,
       isIcon: true,
-      iconType: {
-        'success': 'checked',
-        'warning': 'warning',
-        'danger': 'error',
-        'info': 'info'
-      }
+      iconType,
+      top: 30,
+      timer: null,
+      show: false,
+      upTop: 0
     }
   },
-  watch: {
-    componentTop () {
+  created() {
+    if (this.duration !== 0) {
+      this.init()
     }
   },
-  created () {
-    // console.log(this.info)
-  },
+  mounted() {},
   methods: {
-    beforeEnter (el) {
-      el.style.top = `${this.nextStartTop}px`
-      el.style.opacity = '.5'
+    init() {
+      this.timer = setTimeout(_ => {
+        this.close()
+        clearTimeout(this.timer)
+      }, this.duration)
     },
-    enter (el, done) {
-      Velocity(el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 350, complete: done }, 'ease-out')
-    },
-    afterEnter (el) {
-      if (this.duration === 0 || this.isClose) return
-      this.close(el)
-    },
-
-    close (el = this.$el, duration = this.duration) {
-      setTimeout(() => {
-        Velocity(el, { opacity: 0 }, { duration: 350,
-          complete: () => {
-            this.removeChild()
-          } })
-      }, duration)
-    },
-    animations () {
-      Velocity(this.$el, { top: `${this.componentTop}px`, opacity: 1 }, { duration: 200 }, 'ease-out')
-    },
-    removeChild () {
-      this.$destroy(true)
+    close() {
+      this.show = false;
+      this.beforeClose && this.beforeClose(this)
       this.closeFn(this.id)
-    }
+    },
   }
 }
 </script>

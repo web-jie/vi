@@ -19,7 +19,6 @@
           title:'提示',
           content: '确定要执行此操作？',
           type: 'confirm',
-          isCloseEsc: true
         }).then(_ => {
           console.log('点击了确定')
         }).catch(_ => {
@@ -79,7 +78,6 @@
           title:'提示',
           content: '确定要执行此操作？',
           type: 'confirm',
-          
         }).then(_ => {
           console.log('点击了确定')
         }).catch(_ => {

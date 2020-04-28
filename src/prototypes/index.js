@@ -1,11 +1,13 @@
 import message from './views/message'
 import mask from './views/mask'
 import messageBox from './views/messageBox'
+import noticeation from './views/noticeation'
 
 const list = [
   message,
   mask,
-  messageBox
+  messageBox,
+  noticeation
 ]
 
 const toLowerCase = (val) => {

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import message from '../../components/message'
 
-let list = []
+let instances = []
 let seed = 1
 const Message = (options) => {
   options = options || {}
@@ -11,46 +11,52 @@ const Message = (options) => {
     }
   }
   const MyComponent = Vue.extend(message)
-
-  let verticalOffset = options.top || 30
-  list.forEach(item => {
-    verticalOffset += item.$el.offsetHeight + 16
-  })
+  const id = `noticeation-${seed++}`
 
   options.closeFn = function (id) {
     Message.closeFn(id)
   }
 
-  const component = new MyComponent({
-    data: options
-  })
-  component.id = 'message-' + seed++
-  component.componentTop = verticalOffset
-  if (list.length) {
-    component.nextStartTop = verticalOffset - 16
-  }
-  component.$mount()
-  document.getElementsByTagName('body')[0].appendChild(component.$el)
+  options.newTop = options.top === 0 ? 0 : (options.top || 30)
 
-  list.push(component)
+  options.upTop = instances.length ? instances[instances.length - 1].top : 0
+
+  instances.forEach(v => {
+    options.newTop += v.$el.offsetHeight + 16
+  })
+
+  options.top = options.upTop
+  const component = new MyComponent({
+    data: options,
+    mounted() {
+      options.top = options.newTop
+    },
+  })
+
+  component.show = true
+  component.id = id
+  component.$mount()
+
+  instances.push(component)
+  document.getElementsByTagName('body')[0].appendChild(component.$el)
 
   return component
 }
 Message.closeFn = function (id) {
-  const findIndex = list.findIndex(v => v.id === id)
-  const removeEl = list[findIndex].$el
-  const removeHeight = removeEl.offsetHeight
-  removeEl.parentNode.removeChild(removeEl)
-  if (list[findIndex].beforeClose) {
-    list[findIndex].beforeClose(list[findIndex])
+  const len = instances.length;
+  const instance = instances.filter(v => v.id === id)[0]
+  const index = instances.findIndex(v => v.id === id)
+
+  if (index < 0) return
+  Message.closeFn()
+  instances.splice(index, 1);
+  if (len <= 1) return
+
+  const removedHeight = instance.$el.offsetHeight;
+
+  for (let i = index; i < len - 1 ; i++) {
+    instances[i].top = parseInt(instances[i].top, 10) - removedHeight - 16 
   }
-  list.splice(findIndex, 1)
-  list.forEach((item, index) => {
-    if (index > findIndex - 1) {
-      item.componentTop = parseInt(item.$el.style.top, 10) - removeHeight - 16
-      item.animations()
-    }
-  })
 }
 
 const typeList = ['success', 'info', 'warning', 'danger']
@@ -63,7 +69,7 @@ typeList.forEach(v => {
       }
     }
     options['type'] = v
-    Message(options)
+    return Message(options)
   }
 })
 

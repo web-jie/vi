@@ -1,5 +1,5 @@
 <template>
-  <i :class="classes"  @click="handleClick" :style="styles" style="font-size: 16px"></i>
+  <i :class="classes"  @click="handleClick" :style="styles"></i>
 </template>
 <script>
 export default {
@@ -22,7 +22,8 @@ export default {
     classes () {
       return [
         'iconfont',
-        `vi-icon-${this.name}`
+        `vi-icon-${this.name}`,
+        'vi-icon'
       ]
     },
     styles () {
