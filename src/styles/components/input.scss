@@ -82,7 +82,7 @@
     @include size(32px)
   }
   &_prefix-icon {
-    @include setPosition(left, $left: 6px, $top: 2px) {
+    @include setPosition(left, $left: 6px) {
       bottom: 0;
     }
     display: flex;

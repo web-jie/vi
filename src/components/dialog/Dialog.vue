@@ -6,7 +6,6 @@
     :name="`vi-dialog-${animation}`"
     appear>
     <div class="vi-dialog" v-show="value" @click.self="closeOnClickOverlay && handClose($event)" :style="viDialogStyles" role="dialog">
-      <!--@click.self="closeOnClickOverlay && onClose()"-->
       <div class="vi-dialog_main" :style="boxStyles">
         <div class="vi-dialog_close" @click="handClose" v-if="isCloseIcon">
           <vi-icon name="close" size="18" color="#999"></vi-icon>
@@ -38,10 +37,6 @@ import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { getPx } from '../../utils/helper'
 export default {
   name: 'vi-dialog',
-  // model: {
-  //   prop: 'value',
-  //   event: 'change'
-  // },
   props: {
     value: {
       type: Boolean,
@@ -141,7 +136,7 @@ export default {
         this.$emit('open')
       } else {
         this.$VIELEMENT.dialogList.pop()
-        this.isCloseEsc && removeWindowsEvent(_ => {}, 'dialog')
+        this.isCloseEsc && removeWindowsEvent(this, 'keydown')
         this.$emit('close')
       }
     }
@@ -157,6 +152,9 @@ export default {
     }
   },
   methods: {
+    windowCallback(e) {
+      this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].isCloseEsc && this.keydownFn(e)
+    },
     handClose (e) {
       if (this.beforeClose) {
         this.beforeClose(() => {
@@ -167,9 +165,10 @@ export default {
       }
     },
     keydown (e) {
-      bindWindowsEvent((e) => {
-        this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].isCloseEsc && this.keydownFn(e)
-      }, 'dialog')
+      bindWindowsEvent(this, 'keydown')
+      // bindWindowsEvent((e) => {
+      //   this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].isCloseEsc && this.keydownFn(e)
+      // }, 'dialog')
     },
     keydownFn (e) {
       if (e.keyCode === 27) {

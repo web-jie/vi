@@ -179,3 +179,10 @@ export default {
 |-|-|-|
 |focus|使 input 获取焦点|-|
 |blur|使 input 失去焦点|-|
+
+### Input slots
+|name | 说明|
+|-|-|
+|-|输入框外部内容|
+|prefix-icon|输入框头部图标, 在```type !== textarea```时有效|
+|suffix-iconn|输入框尾部图标, 在```type !== textarea```时有效|

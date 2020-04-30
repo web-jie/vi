@@ -54,9 +54,15 @@ export default {
 <style lang="scss">
 .component-page {
   height: 100%;
+  overflow-x: auto;
+  color: #a6a9ad;
+  &::-webkit-scrollbar {
+    height: 14px;
+  }
   &__aside {
     overflow: auto;
     padding: 50px 15px 90px 0;
+    box-sizing: border-box;
     min-width: 230px;
     color: rgba(0, 0, 0, 0);
     transition: all .3s;
@@ -69,10 +75,17 @@ export default {
     }
   }
   &__body {
+    flex: 1;
     padding: 50px 30px 90px 40px;
-    overflow: auto;
+    box-sizing: border-box;
+    overflow-y: auto;
     color: rgba(0, 0, 0, 0);
     transition: all .3s;
+    min-width: 890px;
+    &::-webkit-scrollbar {
+      width: 7px;
+      height: 4px;
+    }
     &:hover {
       color: rgba(0, 0, 0, 0.2);
     }

@@ -72,7 +72,7 @@ export default {
         this.$VIELEMENT.messageBoxList.push(this)
       } else {
         this.$VIELEMENT.messageBoxList.pop()
-        this.isCloseEsc && removeWindowsEvent(_ => {}, 'messageBox')
+        this.isCloseEsc && removeWindowsEvent(this, 'keydown')
       }
     }
   },
@@ -86,10 +86,14 @@ export default {
   created () {
   },
   methods: {
+    windowCallback(e) {
+      this.$VIELEMENT.messageBoxList[this.$VIELEMENT.messageBoxList.length - 1].isCloseEsc && this.keydownFn(e)
+    },
     keydown (e) {
-      bindWindowsEvent((e) => {
-        this.$VIELEMENT.messageBoxList[this.$VIELEMENT.messageBoxList.length - 1].isCloseEsc && this.keydownFn(e)
-      }, 'messageBox')
+      bindWindowsEvent(this, 'keydown')
+      // bindWindowsEvent((e) => {
+      //   this.$VIELEMENT.messageBoxList[this.$VIELEMENT.messageBoxList.length - 1].isCloseEsc && this.keydownFn(e)
+      // }, 'messageBox')
     },
     keydownFn (e) {
       e.keyCode === 27 && (this.$VIELEMENT.messageBoxList[this.$VIELEMENT.messageBoxList.length - 1].show = false)

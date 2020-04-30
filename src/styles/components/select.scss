@@ -21,9 +21,8 @@
     cursor: pointer;
   }
   &_content {
-    z-index: 1000;
     position: absolute;
-    transform: translateY(4px);
+    transform: translateY($fs-4);
     min-width: 100%;
     background-color: $color-white;
     border-radius: $fs-4;
@@ -34,6 +33,7 @@
     transition: color .3s ease;
     overflow: auto;
     color: rgba(0, 0, 0, 0);
+    transform-origin: left top;
     &:hover {
       color: rgba(0, 0, 0, 0.2);
     }
@@ -68,6 +68,7 @@
     transition: all $duration02;
   }
   .selectFade-enter, .selectFade-leave-to {
+    transform: scaleY(0.5);
     opacity: 0;
   }
 }

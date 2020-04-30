@@ -1,0 +1,120 @@
+.vi-date-picker {
+  position: relative;
+  display: inline-block;
+  .is-Focus {
+    .vi-input_inner {
+      border-color: $color-active-primary;
+    }
+  }
+  &_panel {
+    @include setPosition(custom) {};
+    background-color: $color-white;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    border-radius: $fs-4;
+    transform-origin: left top;
+    transform: translateY($fs-4);
+    z-index: 10;
+    display: flex;
+    border-top: 1px solid $color-primary-bd;
+    .vi-date-picker_header {
+      display: flex;
+      padding: $fs-10 $fs-10;
+      box-sizing: border-box;
+      border-bottom: 1px solid $color-hover-bd;
+      .vi-date-picker_header-label {
+        flex: 1;
+        text-align: center;
+        font-size: $fs-15;
+        user-select: none;
+      }
+      .vi-date-picker_header-arrow {
+        cursor: pointer;
+        .vi-date-picker_month-arrow {
+          display: inline-block;
+          width: $fs-22;
+          text-align: center;
+        }
+      }
+    }
+    .vi-date-picker_content {
+      padding: $fs-15 $fs-10;
+      box-sizing: border-box;
+      width: 290px;
+      .vi-date-item {
+        flex: 0 0 14.285%;
+        text-align: center;
+      }
+      .vi-date-picker_week {
+        display: flex;
+        font-size: $fs-13;
+        color: $color-info;
+      }
+      .vi-date-picker_days{
+        margin-top: $fs-15;
+        display: flex;
+        flex-wrap: wrap;
+        font-size: $fs-13;
+        .vi-date-days_item {
+          height: 40px;
+          line-height: 40px;
+          cursor: pointer;
+          color: $color-primary-text;
+          display: flex;
+          &:hover:not(.is-up) {
+            .vi-date-item_days-inner:not(.is-active) {
+              background-color: $color-bgdark-primary;
+            }
+          }
+          .vi-date-item_days-inner {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            margin: auto;
+            line-height: 22px;
+            text-align: center;
+            transition: background-color .3s;
+          }
+          .is-current {
+            color: $color-primary;
+            font-weight: bold;
+          }
+          .is-active {
+            border-radius: 100%;
+            background-color: $color-primary;
+            color: $color-white;
+          }
+          &.is-up {
+            opacity: .3;
+          }
+        }
+      }
+    }
+  }
+  &-enter-active, &-leave-active {
+    transition: all $duration02;
+  }
+  &-enter, &-leave-to {
+    transform: scaleY(0.5);
+    opacity: 0;
+  }
+
+  .vi-datepicker-options {
+    // padding: $fs-10 $fs-6;
+    background-color: $color-white;
+    border-right: 1px solid $color-primary-bd;
+    width: 110px;
+    cursor: pointer;
+    &_inner {
+      padding: $fs-10;
+      box-sizing: border-box;
+      transition: all $duration03;
+      font-size: $fs-14;
+      color: $color-primary-text;
+      user-select: none;
+      text-align: left;
+      &:hover {
+        background-color: $color-bgdark-primary;
+      }
+    }
+  }
+}

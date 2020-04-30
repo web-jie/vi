@@ -42,7 +42,7 @@
 
       <span class="vi-input_prefix-icon" v-if="prefixIcon || $slots['prefix-icon']">
         <slot name="prefix-icon">
-          <vi-icon :name="prefixIcon" size="14"></vi-icon>
+          <vi-icon :name="prefixIcon" size="16"></vi-icon>
         </slot>
       </span>
 
@@ -54,7 +54,7 @@
 
     </template>
     <slot></slot>
-    <span class="vi-input_clearable" v-if="isShowClear" @click.stop="onClearable" @mouseenter="mouseenter"
+    <span class="vi-input_clearable" v-if="isShowClear" @click="onClearable" @mouseenter="mouseenter"
       @mouseleave="mouseleave">
       <vi-icon name="close" size="14"></vi-icon>
     </span>
@@ -132,6 +132,10 @@ export default {
     width: {
       type: [String, Number],
       default: ''
+    },
+    clearableIsFocus: {
+      type: Boolean,
+      default: true
     }
   },
   inject: {
@@ -144,7 +148,6 @@ export default {
     return {
       isHover: false,
       isFocus: false
-      // isShowClear: false
     }
   },
   watch: {
@@ -178,7 +181,7 @@ export default {
     inputStyles () {
       return {
         paddingRight: (this.suffixIcon || this.$slots['suffix-icon']) && '30px',
-        paddingLeft: (this.prefixIcon || this.$slots['prefix-icon']) && '22px'
+        paddingLeft: (this.prefixIcon || this.$slots['prefix-icon']) && '25px'
       }
     },
     statusClassess () {
@@ -216,7 +219,7 @@ export default {
     },
     onClearable () {
       this.$emit('input', '')
-      this.focus()
+      this.clearableIsFocus && this.focus()
     },
     onBlur (event) {
       this.isFocus = false

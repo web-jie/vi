@@ -24,9 +24,7 @@ export default {
 <style lang="scss">
   .app {
     height: 100%;
-    width: 90%;
     margin: 0 auto;
-    min-width: 1000px;
     display: flex;
     flex-direction: column;
     &-header {
@@ -81,7 +79,8 @@ export default {
     }
     &-container {
       flex: 1;
-      overflow-y: hidden;
+      // overflow-y: hidden;
+      overflow: hidden;
     }
   }
 </style>

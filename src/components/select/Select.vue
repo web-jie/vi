@@ -39,7 +39,6 @@
 </template>
 
 <script>
-// import Velocity from 'velocity-animate'
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { isEmptyObject } from '../../utils/helper'
 
@@ -89,12 +88,13 @@ export default {
   watch: {
     isShow (val) {
       if (val) {
-        bindWindowsEvent(() => {
-          if (!this.isFirstFlag) {
-            this.blur()
-          }
-          this.isFirstFlag = false
-        }, 'select', 'click')
+        bindWindowsEvent(this, 'click', false)
+        // bindWindowsEvent(() => {
+        //   if (!this.isFirstFlag) {
+        //     this.blur()
+        //   }
+        //   this.isFirstFlag = false
+        // }, 'select', 'click')
         this.$nextTick(() => {
           this.isFirstScroll && (this.$refs['select_content'].scrollTop = (this.currIndex > 2 ? (this.currIndex - 3) : 0) * 37)
         })
@@ -133,6 +133,12 @@ export default {
     }
   },
   methods: {
+    windowCallback(e) {
+      if (!this.isFirstFlag) {
+        this.blur()
+      }
+      this.isFirstFlag = false
+    },
     onClearcAble () {
       this.$emit('input', '')
     },
@@ -159,7 +165,8 @@ export default {
     },
     afterLeave () {
       this.isFirstFlag = true
-      removeWindowsEvent(() => {}, 'select', 'click')
+      removeWindowsEvent(this, 'click')
+      // removeWindowsEvent(() => {}, 'select', 'click')
     }
   }
 }
