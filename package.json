@@ -31,6 +31,7 @@
     "lint-staged": "^9.5.0",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
+    "v-poppers": "^1.1.0",
     "velocity-animate": "^1.5.2",
     "vue-markdown-loader": "^2.4.1",
     "vue-template-compiler": "^2.6.10"

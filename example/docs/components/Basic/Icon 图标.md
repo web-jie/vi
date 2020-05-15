@@ -53,6 +53,7 @@ export default {
       document.body.appendChild(textarea)
       textarea.select()
       document.execCommand("copy")
+     
       this.$message({
         content: '复制成功',
       })

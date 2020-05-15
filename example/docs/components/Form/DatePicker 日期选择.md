@@ -33,11 +33,11 @@
 <div class="vi-docs-date">
   <div class="text-center">
     <p class="p">默认</p>
-    <vi-date-picker v-model="time1"></vi-date-picker>
+    <vi-date-picker v-model="time1" :isAppendParentNode="true"></vi-date-picker>
   </div>
   <div class="text-center">
     <p class="p">带快捷选项</p>
-    <vi-date-picker v-model="time2" :short-options="options1"></vi-date-picker>
+    <vi-date-picker v-model="time2" :short-options="options1" :isAppendParentNode="true"></vi-date-picker>
   </div>
 </div>
 <script>
@@ -53,9 +53,10 @@
             onClick: () => new Date()
           }, {
             label: '明天',
-            onClick: (item) => new Date().getTime() + 24 * 60 * 60 * 1000
+            onClick: () => new Date().getTime() + 24 * 60 * 60 * 1000
           }, {
-            label: '最近一周'
+            label: '七天前',
+            onClick: () => new Date().getTime() - 3600 * 1000 * 24 * 7
           }]
         }
       }
@@ -69,7 +70,43 @@
 ### 设置type显示其他日期
 ::: demo
 ``` html
-<vi-date-picker v-model="time3"></vi-date-picker>
+<vi-date-picker v-model="time3" :isAppendParentNode="true"></vi-date-picker>
+
+<script>
+  export default {
+    data() {
+      return {
+        time3: ''
+      }
+    },
+  }
+</script>
+
+```
+:::
+
+### 设置type显示其他日期
+::: demo
+``` html
+<vi-date-picker v-model="time3" :isAppendParentNode="true"></vi-date-picker>
+
+<script>
+  export default {
+    data() {
+      return {
+        time3: ''
+      }
+    },
+  }
+</script>
+
+```
+:::
+
+### 设置type显示其他日期
+::: demo
+``` html
+<vi-date-picker v-model="time3" :isAppendParentNode="true"></vi-date-picker>
 
 <script>
   export default {
@@ -93,10 +130,11 @@
 |type| String |显示类型|year / month / date  |-|
 |disabled|Boolean|是否禁用|-|fasle|
 |size|String|尺寸|large / small / mini|-|
-|format|String|可选，绑定值的格式。不指定则绑定值为 Date 对象|-|-|
-|value-format|String|显示在输入框中的格式|-|yyyy-MM-dd|
+|format|String|显示在输入框中的格式	不指定则绑定值为 Date 对象|-|yyyy-MM-dd|
+|value-format|String|可选，绑定值的格式。不指定则绑定值为 Date 对象|-|Date|
 |clearable|Boolean|	是否可清空|-|true|
-|short-options|Object|	当前时间日期选择器特有的选项参考下表|-|{}|
+|short-options|Object|当前时间日期选择器特有的选项，参考下表|-|{}|
+|isAppendParentNode|Boolean|日期面板是否加在离DatePicker组件最近的父级滚动元素上， 默认为加在body上|-|false|
 
 ### shortOptions Attributes
 |参数|类型|说明|可选值|默认值|

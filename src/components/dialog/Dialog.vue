@@ -5,7 +5,13 @@
     @after-enter="afterEnter"
     :name="`vi-dialog-${animation}`"
     appear>
-    <div class="vi-dialog" v-show="value" @click.self="closeOnClickOverlay && handClose($event)" :style="viDialogStyles" role="dialog">
+    <div 
+      ref="dialog"
+      class="vi-dialog" 
+      v-show="value" 
+      @click.self="closeOnClickOverlay && handClose($event)" 
+      :style="viDialogStyles" 
+      role="dialog" >
       <div class="vi-dialog_main" :style="boxStyles">
         <div class="vi-dialog_close" @click="handClose" v-if="isCloseIcon">
           <vi-icon name="close" size="18" color="#999"></vi-icon>

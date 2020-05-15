@@ -7,8 +7,7 @@
     :class="inputClasses"
     :disabled="disabled"
     :size="size"
-    @focus="isShow = true"
-    @blur="onBlur"
+    @focus="onFocus"
     @mouseenter.native="clearable && (isHover = true)"
     @mouseleave.native="clearable && (isHover = false)"
     :placeholder="placeholder">
@@ -27,7 +26,7 @@
       <transition
       appear
       @afterLeave="afterLeave"
-      name="selectFade">
+      name="vi-select">
         <div class="vi-select_content" v-show="isShow" :style="ulStyles" ref="select_content">
           <ul class="vi-select_ul">
             <slot></slot>
@@ -41,6 +40,7 @@
 <script>
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { isEmptyObject } from '../../utils/helper'
+import Popper from 'v-poppers'
 
 export default {
   name: 'vi-select',
@@ -61,7 +61,11 @@ export default {
     clearable: {
       type: Boolean,
       default: false
-    }
+    },
+    isAppendParentNode: {
+      type: Boolean,
+      default: false
+    },
   },
   provide () {
     return {
@@ -82,19 +86,26 @@ export default {
       childrenList: [],
       isHover: false,
       currIndex: 0,
-      isFirstScroll: true
+      isFirstScroll: true,
+      popperOptions: {
+        trackPosition: '',
+        offset: {
+          y: 8
+        },
+        className: {
+          'top': ['vi-wrap_top-transition'],
+          'bottom': ['vi-wrap_bottom-transition']
+        }
+      },
+      popperVm: null,
+      minWidth: ''
     }
   },
   watch: {
     isShow (val) {
       if (val) {
         bindWindowsEvent(this, 'click', false)
-        // bindWindowsEvent(() => {
-        //   if (!this.isFirstFlag) {
-        //     this.blur()
-        //   }
-        //   this.isFirstFlag = false
-        // }, 'select', 'click')
+        this.minWidth = this.$refs.input.$el.offsetWidth
         this.$nextTick(() => {
           this.isFirstScroll && (this.$refs['select_content'].scrollTop = (this.currIndex > 2 ? (this.currIndex - 3) : 0) * 37)
         })
@@ -108,9 +119,16 @@ export default {
       !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('change'))
     }
   },
+  created() {
+    this.popperOptions.isAppendParentNode = this.isAppendParentNode
+  },
   mounted () {
     this.childrenList = this.$children[0].$children || []
     this.setInputVal()
+    this.popperVm = new Popper(this.$refs.select_content, this.$el, this.popperOptions)
+  },
+  beforeDestroy() {
+    this.popperVm.destroy()
   },
   computed: {
     pullDownClasses () {
@@ -125,7 +143,8 @@ export default {
     },
     ulStyles () {
       return {
-        zIndex: this.$VIELEMENT.getZIndex() + 1
+        zIndex: this.$VIELEMENT.getZIndex() + 1,
+        minWidth: this.minWidth + 'px'
       }
     },
     isShowClear () {
@@ -142,11 +161,16 @@ export default {
     onClearcAble () {
       this.$emit('input', '')
     },
-    onBlur () {},
+    onFocus() {
+      this.isShow = true
+      this.$nextTick(_ => {
+        this.popperVm.show()
+      })
+    },
     blur () {
       this.isShow = false
       !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
-      this.$refs.input.blur()
+      this.$refs.input && this.$refs.input.blur()
     },
     focus () {
       this.$refs.input.focus()
@@ -165,7 +189,7 @@ export default {
     },
     afterLeave () {
       this.isFirstFlag = true
-      removeWindowsEvent(this, 'click')
+      // removeWindowsEvent(this, 'click')
       // removeWindowsEvent(() => {}, 'select', 'click')
     }
   }

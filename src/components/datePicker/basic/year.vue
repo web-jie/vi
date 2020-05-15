@@ -40,6 +40,7 @@ export default {
         date.setMonth(this.dateOptions.month)
       }
       this.$emit('changeDate', date)
+      this.$emit('updatePosition')
     },
   },
 }

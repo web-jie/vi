@@ -23,6 +23,7 @@ export default {
         delivery: true,
         radio: 1,
         checkbox: ['1', '2'],
+        time: '',
         remark: ''
       },
        ruleForm2: {
@@ -170,6 +171,11 @@ export default {
       <vi-checkbox value="3">16:00 - 18:00</vi-checkbox>
     </vi-checkbox-group>
   </vi-form-item>
+  <vi-form-item label="指定时间">
+    <vi-date-picker 
+    v-model="ruleForm1.time" 
+    :isAppendParentNode="true">
+  </vi-form-item>
   <vi-form-item label="食物备注">
     <vi-input v-model="ruleForm1.remark" type="textarea" width="260px"></vi-input>
   </vi-form-item>
@@ -188,6 +194,7 @@ export default {
         delivery: true,
         radio: 1,
         checkbox: ['1', '2'],
+        time: '',
         remark: ''
       },
       typeList: [{

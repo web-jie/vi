@@ -75,6 +75,7 @@ export default {
     }
   }
   &__body {
+    position: relative;
     flex: 1;
     padding: 50px 30px 90px 40px;
     box-sizing: border-box;

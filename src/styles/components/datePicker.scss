@@ -7,14 +7,12 @@
     }
   }
   &_panel {
-    @include setPosition(custom) {};
     background-color: $color-white;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     border-radius: $fs-4;
-    transform-origin: left top;
-    transform: translateY($fs-4);
     z-index: 10;
     display: flex;
+    transform-origin: left top;
     border-top: 1px solid $color-primary-bd;
     .vi-date-picker_header {
       display: flex;
@@ -89,32 +87,35 @@
         }
       }
     }
+    .vi-datepicker-options {
+      // padding: $fs-10 $fs-6;
+      background-color: $color-white;
+      border-right: 1px solid $color-primary-bd;
+      width: 110px;
+      cursor: pointer;
+      &_inner {
+        padding: $fs-10;
+        box-sizing: border-box;
+        transition: all $duration03;
+        font-size: $fs-14;
+        color: $color-primary-text;
+        user-select: none;
+        text-align: left;
+        &:hover {
+          background-color: $color-bgdark-primary;
+        }
+      }
+    }
+  }
+  &_header-label {
+    color: $color-primary-text;
   }
   &-enter-active, &-leave-active {
-    transition: all $duration02;
+    transition-property: transform, opacity;
+    transition-duration: $duration02;
   }
   &-enter, &-leave-to {
     transform: scaleY(0.5);
     opacity: 0;
-  }
-
-  .vi-datepicker-options {
-    // padding: $fs-10 $fs-6;
-    background-color: $color-white;
-    border-right: 1px solid $color-primary-bd;
-    width: 110px;
-    cursor: pointer;
-    &_inner {
-      padding: $fs-10;
-      box-sizing: border-box;
-      transition: all $duration03;
-      font-size: $fs-14;
-      color: $color-primary-text;
-      user-select: none;
-      text-align: left;
-      &:hover {
-        background-color: $color-bgdark-primary;
-      }
-    }
   }
 }

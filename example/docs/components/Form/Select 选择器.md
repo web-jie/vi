@@ -56,7 +56,7 @@ export default {
 ### 基本用法
 ::: demo
 ``` html
-<vi-select style="width: 220px" v-model="value1" ref="select">
+<vi-select style="width: 220px" v-model="value1" ref="select" :isAppendParentNode="true">
   <vi-option v-for="(item, index) in list" :key="index" :label="item.label" :value="item.value"></vi-option>
 </vi-select>
 
@@ -101,7 +101,7 @@ export default {
 
 ::: demo
 ``` html
-<vi-select style="width: 220px" v-model="value2" disabled>
+<vi-select style="width: 220px" v-model="value2" disabled isAppendParentNode>
   <vi-option v-for="(item, index) in list" :key="index" :label="item.label" :value="item.value"></vi-option>
 </vi-select>
 
@@ -146,7 +146,7 @@ export default {
 
 ::: demo
 ``` html
-<vi-select style="width: 220px" v-model="value3">
+<vi-select style="width: 220px" v-model="value3" isAppendParentNode>
   <vi-option v-for="(item, index) in list" :key="index" :label="item.label" :value="item.value" :disabled="index === 2"></vi-option>
 </vi-select>
 
@@ -191,7 +191,7 @@ export default {
 
 ::: demo
 ``` html
-<vi-select style="width: 220px" v-model="value4" clearable>
+<vi-select style="width: 220px" v-model="value4" clearable isAppendParentNode>
   <vi-option v-for="(item, index) in list" :key="index" :label="item.label" :value="item.value" ></vi-option>
 </vi-select>
 
@@ -229,6 +229,7 @@ export default {
 |disabled|Boolean|是否禁用|-|false|
 |size|String|输入框尺寸|large / small / mini|-|
 |clearable|Boolean|是否可以清空选项|-|false|
+|isAppendParentNode|Boolean|下拉框面板是否加在离Select组件最近的父级滚动元素上， 默认为加在body上|-|false|
 
 ### Select Events
 |事件名称|说明|回调参数|

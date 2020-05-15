@@ -21,9 +21,10 @@
     cursor: pointer;
   }
   &_content {
-    position: absolute;
-    transform: translateY($fs-4);
-    min-width: 100%;
+    // position: absolute;
+    // transform: translateY($fs-4);
+    // min-width: 100%;
+    transform-origin: left top;
     background-color: $color-white;
     border-radius: $fs-4;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
@@ -42,10 +43,11 @@
       padding: 0;
       list-style: none;
       color: $color-primary-text;
-      .vi-select_item {
+      & .vi-select_item {
         padding: $fs-6 $fs-12;
         cursor: pointer;
         font-size: 14px;
+        line-height: 1.8;
         &.is-active {
           background-color: $color-primary-bg;
           color: $color-primary;
@@ -64,10 +66,12 @@
       }
     }
   }
-  .selectFade-enter-active, .selectFade-leave-active {
-    transition: all $duration02;
+
+  &-enter-active, &-leave-active {
+    transition-property: transform, opacity;
+    transition-duration: $duration02;
   }
-  .selectFade-enter, .selectFade-leave-to {
+  &-enter, &-leave-to {
     transform: scaleY(0.5);
     opacity: 0;
   }

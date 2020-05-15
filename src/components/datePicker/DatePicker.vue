@@ -1,5 +1,5 @@
 <template>
-  <div class="vi-date-picker">
+  <div class="vi-date-picker" ref="datePicker">
     <vi-input 
       readonly
       ref="input"
@@ -10,7 +10,7 @@
       :clearableIsFocus="false"
       :clearable="clearable"
       :prefix-icon="prefixIcon"
-      @focus="isShow = true;"
+      @focus="onFocus"
       :placeholder="placeholder">
     </vi-input>
 
@@ -25,6 +25,7 @@
         <div>
           <yearView 
           @changeDate="getDate"
+          @updatePosition="updatePosition"
           :dateOptions="dateOptions"/>
           <div class="vi-date-picker_content">
             <weekView 
@@ -51,6 +52,8 @@ import shortcutOptions from './basic/shortcut-options'
 import timeUtils from './format'
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { isEmptyObject } from '../../utils/helper'
+// import Popper from '../../aa/popper'
+import Popper from 'v-poppers'
 
 export default {
   components: {
@@ -90,7 +93,11 @@ export default {
     shortOptions: {
       type: Object,
       default: () => ({})
-    }
+    },
+    isAppendParentNode: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
@@ -112,7 +119,18 @@ export default {
       dayList: [],
       isFirstFlag: true,
       currentSeed: '',
-      currentDate: ''
+      currentDate: '',
+      popperOptions: {
+        trackPosition: '',
+        className: {
+          'top': ['vi-wrap_top-transition'],
+          'bottom': ['vi-wrap_bottom-transition']
+        },
+        offset: {
+          y: 8
+        }
+      },
+      popperVm: null
     }
   },
   watch: {
@@ -162,13 +180,23 @@ export default {
     }
   },
   created() {
+    this.popperOptions.isAppendParentNode = this.isAppendParentNode
     this.getDate(this.value)
   },
   mounted() {
     this.setInputVal()
-    // document.getElementsByTagName('body')[0].appendChild(this.)
+    this.popperVm = new Popper(this.$refs.panel, this.$el, this.popperOptions)
+  },
+  beforeDestroy() {
+    this.popperVm.destroy()
   },
   methods: {
+    onFocus(e) {
+      this.isShow = true
+      this.$nextTick(_ => {
+        this.popperVm.show()
+      })
+    },
     preventStop() {},
     windowCallback(e) {
       if (!this.isFirstFlag) {
@@ -186,11 +214,13 @@ export default {
     },
     blur () {
       this.isShow = false
-      // !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
       this.$refs.input && this.$refs.input.blur()
     },
     setInputVal() {
       this.inputValue = this.value && timeUtils.formatDatetime(this.value, this.format)
+    },
+    updatePosition() {
+      this.popperVm.update()
     },
     getDate(val) {
       this.weekList = []
@@ -205,7 +235,6 @@ export default {
       const initMonthWeek = new Date(`${year}-${month + 1}-${1}`).getDay()
       // 一个月有多少天
       const currentMonthDays = new Date(year, month + 1, 0).getDate()
-
 
       this.dateOptions = {
         year,
