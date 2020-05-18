@@ -8,16 +8,6 @@ import guide from './guide/router'
 import prototype from './prototype/router'
 import plugins from './plugin/router'
 
-// export default [
-//   ...Basic,
-//   ...Data,
-//   ...Form,
-//   ...Navigation,
-//   ...Notice,
-//   ...Others,
-//   ...guide
-// ]
-
 export default [
   ...Basic,
   ...Data,
