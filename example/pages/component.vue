@@ -8,6 +8,7 @@
                         :name="route.name" :to="route">{{route.meta.name}}</vi-menu-item>
         </vi-menu>
       </div>
+
       <div style="color: #000">
         <h2 class="title">组件</h2>
         <vi-menu v-model="menu">
@@ -18,6 +19,23 @@
           </vi-menu-group>
         </vi-menu>
       </div>
+
+      <div style="color: #000">
+        <h2 class="title">Prototype</h2>
+        <vi-menu v-model="menu">
+          <vi-menu-item v-for="(route, index) in prototypeList" :key="index"
+                        :name="route.name" :to="route">{{route.meta.name}}</vi-menu-item>
+        </vi-menu>
+      </div>
+
+      <div style="color: #000">
+        <h2 class="title">plugins</h2>
+        <vi-menu v-model="menu">
+          <vi-menu-item v-for="(route, index) in pluginsList" :key="index"
+                        :name="route.name" :to="route">{{route.meta.name}}</vi-menu-item>
+        </vi-menu>
+      </div>
+
     </vi-aside>
     <vi-main class="component-page__body" ref="page-body">
       <router-view></router-view>
@@ -26,7 +44,7 @@
 </template>
 
 <script>
-import { groupList, guideList } from '@/router'
+import { groupList, guideList, prototypeList, pluginsList } from '@/router'
 export default {
   name: 'component-page',
   components: {
@@ -35,7 +53,9 @@ export default {
     return {
       menu: this.$route.name,
       guideList,
-      groupList
+      groupList,
+      prototypeList,
+      pluginsList
     }
   },
   watch: {

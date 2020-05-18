@@ -78,6 +78,14 @@ export const groupList = groupNameList.map(v => ({
 
 export const guideList = componentRoutes.filter(v => v.meta.pageName === 'guide')
 
+// export const prototypeList = []
+// export const pluginsList = []
+
+export const prototypeList = componentRoutes.filter(v => v.meta.pageName === 'prototype')
+
+export const pluginsList = componentRoutes.filter(v => v.meta.pageName === 'plugin')
+
+
 const router = new VueRouter({
   routes: [ ...pagesRoutes ]
 })

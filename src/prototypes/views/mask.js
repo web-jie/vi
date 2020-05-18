@@ -13,6 +13,10 @@ const ViMask = (options) => {
     return component
   }
   options = options || {}
+  console.log(typeof options)
+  if (typeof options !== 'object') {
+    throw new Error('The parameter passed in is not of the specified type, and the object form should be passed')
+  }
   const MyComponent = Vue.extend(mask)
   component = new MyComponent({
     data: options

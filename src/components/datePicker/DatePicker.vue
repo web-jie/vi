@@ -52,7 +52,6 @@ import shortcutOptions from './basic/shortcut-options'
 import timeUtils from './format'
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { isEmptyObject } from '../../utils/helper'
-// import Popper from '../../aa/popper'
 import Popper from 'v-poppers'
 
 export default {
@@ -136,24 +135,9 @@ export default {
   watch: {
     isShow(val) {
       if (val) {
-        timeUtils.seed = this._uid
-        this.currentSeed = timeUtils.seed
-
-        timeUtils.upIndex = this.$VIELEMENT.datePickerList.findIndex(v => v._uid === timeUtils.upSeed)
-        const instance = this.$VIELEMENT.datePickerList.find(v => v._uid === timeUtils.upSeed)
-      
-        !this.$VIELEMENT.datePickerList.some(v => v._uid === timeUtils.seed) 
-        && this.$VIELEMENT.datePickerList.push(this)
-
-        if (timeUtils.upIndex > -1) {
-          this.$VIELEMENT.datePickerList.splice(timeUtils.upIndex, 1)
-          instance.isShow = false
-        }
-        timeUtils.upSeed = this._uid
-
         bindWindowsEvent(this, 'click', false)
       } else {
-        this.currentSeed === timeUtils.seed && (timeUtils.upSeed = '')
+        removeWindowsEvent(this, 'click')
       }
     },
 
@@ -210,7 +194,6 @@ export default {
     },
     afterLeave() {
       this.isFirstFlag = true
-      removeWindowsEvent(this, 'click')
     },
     blur () {
       this.isShow = false

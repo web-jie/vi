@@ -28,6 +28,12 @@ let typeList = []
 function callback(e) {
   const lastType = typeList[typeList.length - 1]
   const typeIndex = typeList.lastIndexOf(lastType)
+  const list = eventsList.filter(v => v.type === lastType)
+  if (list.length > 1) {
+    for(let i = 0; i < list.length - 1; i++) {
+      list[i].options.windowCallback(e)
+    }
+  }
   e.type === lastType && eventsList[typeIndex].options.windowCallback(e)
 }
 

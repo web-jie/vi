@@ -5,8 +5,6 @@
       return {
         time1: '',
         time2: '',
-        time3: '',
-
         options1: {
           shortList: [{
             label: '今天',
@@ -67,59 +65,7 @@
 ```
 :::
 
-### 设置type显示其他日期
-::: demo
-``` html
-<vi-date-picker v-model="time3" :isAppendParentNode="true"></vi-date-picker>
 
-<script>
-  export default {
-    data() {
-      return {
-        time3: ''
-      }
-    },
-  }
-</script>
-
-```
-:::
-
-### 设置type显示其他日期
-::: demo
-``` html
-<vi-date-picker v-model="time3" :isAppendParentNode="true"></vi-date-picker>
-
-<script>
-  export default {
-    data() {
-      return {
-        time3: ''
-      }
-    },
-  }
-</script>
-
-```
-:::
-
-### 设置type显示其他日期
-::: demo
-``` html
-<vi-date-picker v-model="time3" :isAppendParentNode="true"></vi-date-picker>
-
-<script>
-  export default {
-    data() {
-      return {
-        time3: ''
-      }
-    },
-  }
-</script>
-
-```
-:::
 
 ## API
 ### DatePicker Attributes

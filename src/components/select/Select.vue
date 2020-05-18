@@ -41,9 +41,11 @@
 import { bindWindowsEvent, removeWindowsEvent } from '../../utils/index'
 import { isEmptyObject } from '../../utils/helper'
 import Popper from 'v-poppers'
+import popup from '../../mixins/popups'
 
 export default {
   name: 'vi-select',
+  mixins: [popup],
   props: {
     placeholder: {
       type: String,
@@ -110,6 +112,7 @@ export default {
           this.isFirstScroll && (this.$refs['select_content'].scrollTop = (this.currIndex > 2 ? (this.currIndex - 3) : 0) * 37)
         })
       } else {
+        removeWindowsEvent(this, 'click')
         this.isFirstScroll = false
       }
     },
@@ -189,7 +192,7 @@ export default {
     },
     afterLeave () {
       this.isFirstFlag = true
-      // removeWindowsEvent(this, 'click')
+      
       // removeWindowsEvent(() => {}, 'select', 'click')
     }
   }
