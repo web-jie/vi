@@ -94,13 +94,13 @@
   }
   
   &_large {
-    padding: $fs-12 $fs-21;
+    padding: $largeTop $largeleft;
   }
   &_small {
-    padding: $fs-10 $fs-17;
+    padding: $smallTop $smallLeft;
   }
   &_mini {
-    padding: $fs-5 $fs-8;
+    padding: $miniTop $miniLeft;
   }
 
   &_circle {

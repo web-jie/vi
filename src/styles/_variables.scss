@@ -37,6 +37,12 @@ $duration03: .3s;
 $duration05: .5s;
 $duration015: .15s;
 
+$largeTop: $fs-12;
+$largeleft: $fs-21;
+$smallTop: $fs-10;
+$smallLeft: $fs-17;
+$miniTop: $fs-5;
+$miniLeft: $fs-8;
 
 @function getColors($obj, $val) {
   @return map-get($obj, $val);

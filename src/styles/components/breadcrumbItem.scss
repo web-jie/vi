@@ -1,0 +1,31 @@
+.vi-breadcrumb-item {
+  .vi-breadcrumb_inner {
+    font-size: $fs-15;
+    color: $color-active-info;
+    &.vi-breadcrumb_inner-link {
+      cursor: pointer;
+      font-weight: bold;
+      transition: color .2s;
+      color: $color-primary-text;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+  .vi-breadcrumb_separator {
+    margin: 0 $fs-9;
+    color: $color-hover-info;
+    font-weight: 600;
+  }
+  .vi-breadcrumb_separator-class {
+    margin: 0 $fs-9;
+  }
+  &:last-child {
+    .vi-breadcrumb_separator {
+      display: none;
+    }
+    .vi-breadcrumb_separator-class {
+      display: none;
+    }
+  }
+}

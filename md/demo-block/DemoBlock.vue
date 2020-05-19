@@ -58,7 +58,7 @@ export default {
     border-bottom: 1px solid #eee;
     .doc- {
       & > div + div {
-        margin-top: 20px;
+        // margin-top: 20px;
       }
     }
   }

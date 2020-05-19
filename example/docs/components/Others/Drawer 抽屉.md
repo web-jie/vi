@@ -7,10 +7,10 @@ demo
 ```HTML
 <template>
   <vi-drawer ref="drawer" :direction="position"><div>点击了</div></vi-drawer>
-  <button @click="drawerChange('left')">点击左边</button>
-  <button @click="drawerChange('top')">点击上边</button>
-  <button @click="drawerChange('right')">点击右边</button>
-  <button @click="drawerChange('bottom')">点击下边</button>
+  <vi-button @click="drawerChange('left')">点击左边</vi-button>
+  <vi-button @click="drawerChange('top')">点击上边</vi-button>
+  <vi-button @click="drawerChange('right')">点击右边</vi-button>
+  <vi-button @click="drawerChange('bottom')">点击下边</vi-button>
 </template>
 
 
@@ -43,9 +43,9 @@ export default {
 :::
 ## API
 
-| 属性    | 说明     | 类型   | 默认值 |
-| ------- | -------- | -------- |-------- |
-| direction   |   出现的位置 |  String |    left      |
+|参数|类型|说明|可选值|默认值|
+| ------- | -------- | -------- |-------- | ------ |
+| direction   |  String  |   出现的位置|    left /  top / right / bottom    | - |
 
 
 

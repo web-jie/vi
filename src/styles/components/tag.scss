@@ -1,0 +1,70 @@
+
+@mixin setTagsColor($color: $color-primary, $bgColor: $color-bglight-primary, $bdColor: $color-bgdark-primary) {
+  background-color: $bgColor;
+  color: $color;
+  border-color: $bdColor;
+}
+.vi-tag {
+  display: inline-block;
+  padding: $fs-8 $fs-14;
+  border-radius: $fs-4;
+  font-size: $fs-13;
+  border: $fs-1 solid $color-bgdark-primary;
+  box-sizing: border-box;
+  @include setTagsColor();
+  &_success {
+    @include setTagsColor($color: $color-success, $bgColor: $color-bglight-success, $bdColor: $color-bgdark-success);
+  }
+  &_info {
+    @include setTagsColor($color: $color-info, $bgColor: $color-bglight-info, $bdColor: $color-bgdark-info);
+  }
+  &_warning {
+    @include setTagsColor($color: $color-warning, $bgColor: $color-bglight-warning, $bdColor: $color-bgdark-warning);
+  }
+  &_danger {
+    @include setTagsColor($color: $color-danger, $bgColor: $color-bglight-danger, $bdColor: $color-bgdark-danger);
+  }
+  &_clearable {
+    position: relative;
+    cursor: pointer;
+    right: -10px;
+    &:hover {
+      color: $color-hover-info;
+    }
+  }
+  &_large {
+    padding: $largeTop $largeleft;
+    .vi-tag_clearable {
+      right: -18px;
+    }
+  }
+  &_small {
+    padding: $smallTop $smallLeft;
+    .vi-tag_clearable {
+      right: -12px;
+    }
+  }
+  &_mini {
+    padding: $miniTop $miniLeft;
+    .vi-tag_clearable {
+      right: -6px;
+    }
+  }
+  &-enter-active, &-leave-active {
+    transition: all .5s;
+  }
+  &-enter, &-leave-to {
+    transform: rotateY(180deg);
+    opacity: 0;
+  }
+}
+
+.vi-tag-insideAdd {
+  .vi-tag-add {
+    display: inline-block;
+    padding: $fs-8 $fs-14;
+    border-width: 1px;
+    border-style: solid;
+    @include setTagsColor($color: $color-primary-text, $bgColor: $color-white, $bdColor: $color-primary-bd);
+  }
+}

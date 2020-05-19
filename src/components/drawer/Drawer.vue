@@ -25,7 +25,7 @@ export default {
   props: {
     direction: {
       type: String,
-      default: ''
+      default: 'left'
     }
   },
   data () {

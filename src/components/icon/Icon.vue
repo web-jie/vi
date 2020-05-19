@@ -16,6 +16,10 @@ export default {
     size: {
       type: [Number, String],
       default: ''
+    },
+    isDefaultColor: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -23,7 +27,8 @@ export default {
       return [
         'iconfont',
         `vi-icon-${this.name}`,
-        'vi-icon'
+        'vi-icon',
+        this.isDefaultColor && 'vi-icon--defalut_color'
       ]
     },
     styles () {

@@ -43,6 +43,9 @@ export default {
         {
           className: 'close'
         },
+        {
+          className: 'arrow-right'
+        }
       ]
     }
   },
