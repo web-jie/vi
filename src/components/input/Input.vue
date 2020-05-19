@@ -40,7 +40,6 @@
       :max="max"
       :min="min" />
 
-      {{isShowClear}}
       <span class="vi-input_prefix-icon" v-if="prefixIcon || $slots['prefix-icon']">
         <slot name="prefix-icon">
           <vi-icon :name="prefixIcon" size="16"></vi-icon>
