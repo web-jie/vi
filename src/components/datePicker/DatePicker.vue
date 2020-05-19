@@ -15,7 +15,12 @@
     </vi-input>
 
     <transition name="vi-date-picker" appear @afterLeave="afterLeave" >
-      <div class="vi-date-picker_panel" v-show="isShow" @click.stop="preventStop" ref="panel">
+      <div 
+      class="vi-date-picker_panel" 
+      :style="panelStyles"
+      v-show="isShow" 
+      @click.stop="preventStop" 
+      ref="panel">
         <template v-if="isShortOptions">
           <shortcutOptions 
           @change="change"
@@ -129,7 +134,8 @@ export default {
           y: 8
         }
       },
-      popperVm: null
+      popperVm: null,
+      zIndex: this.$VIELEMENT.getZIndex() + 1
     }
   },
   watch: {
@@ -161,6 +167,11 @@ export default {
     },
     isShortOptions() {
       return !isEmptyObject(this.shortOptions) && this.shortOptions.shortList && this.shortOptions.shortList .length
+    },
+    panelStyles() {
+      return {
+        zIndex: this.zIndex
+      }
     }
   },
   created() {
