@@ -144,3 +144,18 @@
   }
   @content;
 }
+
+@mixin setScollBar($el: all, $width: $fs-4, $height: $fs-4, $color: $color-primary-bd) {
+  .#{$el}::-webkit-scrollbar {
+    width: $width; 
+    height: $height;
+  }
+  .#{$el}::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 10px;
+  }
+  .#{$el}::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    border-radius: 0;
+  }
+}
+

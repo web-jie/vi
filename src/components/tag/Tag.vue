@@ -68,6 +68,10 @@ export default {
       })
     },
     blur(e) {
+      if (e.target.value === '') {
+        this.isAdd = false
+        return
+      }
       if (this.insideAddBefore && typeof this.insideAddBefore === 'function') {
         this.insideAddBefore(e.target.value, () => {
           this.list.splice(this.list.length, 0, {

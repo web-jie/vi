@@ -34,6 +34,7 @@ export default {
   watch: {
     value (val) {
       this.$emit('change', val)
+      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
       !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('change'))
     }
   },

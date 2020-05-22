@@ -1,0 +1,115 @@
+.vi-carousel {
+  position: relative;
+  overflow-x: hidden;
+  .vi-carousel-content {
+    position: relative;
+    .vi-carousel-container {
+      position: relative;
+      height: 300px;
+      display: flex;
+      transition-property: transform;
+    }
+    .vi-carousel-arrow {
+      @include setPosition(y-center) {}
+      z-index: 10;
+      cursor: pointer;
+      &.vi-carousel-arrow--hover {
+        opacity: 0;
+        transition: all .3s;
+        &.vi-carousel-prev {
+          left: 0;
+        }
+        &.vi-carousel-next {
+          right: 0;
+        }
+      }
+      &.vi-carousel-arrow--always {
+        &.vi-carousel-prev {
+          left: $fs-10;
+        }
+        &.vi-carousel-next {
+          right: $fs-10;
+        }
+      }
+      &.vi-carousel-arrow--hover {
+        opacity: 0;
+        transition: all .3s;
+      }
+      .vi-carousel-button {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        outline: none;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, .15);
+        color: $color-white;
+        cursor: pointer;
+        transition: all .3s;
+        &:hover {
+          background: rgba(0, 0, 0, .4);
+        }
+      }
+    }
+    &:hover {
+      .vi-carousel-arrow {
+        opacity: 1;
+        &.vi-carousel-prev {
+          left: $fs-10;
+        }
+        &.vi-carousel-next {
+          right: $fs-10;
+        }
+      }
+    }
+  }
+  
+  .vi-carousel-indicator {
+    margin: 0;
+    padding: 0;
+    .vi-carousel-indicator_item {
+      margin: 0;
+      padding: 0;
+      padding: $fs-12 $fs-4;
+      display: inline-block;
+      opacity: .5;
+      transition: opacity .3s;
+      cursor: pointer;
+      &.is-indicator-current {
+        opacity: 1;
+        .vi-indicator-button {
+          width: 40px;
+        }
+      }
+      .vi-indicator-button {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        height: $fs-3;
+        border-radius: $fs-4;
+        width: 30px;
+        background-color: $color-white;
+        transition: width .3s;
+      }
+      &:hover {
+        opacity: 1;
+      }
+    }
+    &.vi-carousel-indicator_inner {
+      @include setPosition(custom) {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+      } 
+    }
+    &.vi-carousel-indicator_outside {
+      text-align: center;
+      .vi-carousel-indicator_item {
+        padding: $fs-2 $fs-4 0;
+        .vi-indicator-button {
+          background-color: $color-info;
+        }
+      }
+    }
+  }
+}

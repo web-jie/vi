@@ -1,5 +1,15 @@
-.vi-demo-block .vi-input {
-  width: 180px;
+.vi-demo-block {
+  .vi-input {
+    width: 180px;
+  }
+  .vi-textarea {
+    width: 280px;
+  }
+}
+.vi-demo-input {
+  .vi-input {
+    margin-bottom: 20px;
+  }
 }
 
 .demo-input-size {

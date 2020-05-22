@@ -33,6 +33,14 @@
       margin-left: -1px;
       transform: translate(-100%, -50%);
     }
+    .vi-switch_loading {
+      left: $fs-6;
+    }
+  }
+  .vi-switch_close {
+    .vi-switch_loading {
+      right: $fs-6;
+    }
   }
   &.vi-switch_disabled {
     cursor: not-allowed;
@@ -52,5 +60,12 @@
   }
   .vi-switch_text_open {
     margin-left: 6px;
+  }
+  .vi-switch_loading {
+    position: absolute;
+    top: 15%;
+    pointer-events: none;
+    display: inline-block;
+    animation: vi-animation-loading 1s infinite Linear;
   }
 }

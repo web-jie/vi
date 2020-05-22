@@ -18,7 +18,7 @@ export default {
 ### 基础用法
 ::: demo
 ``` html
-<div>
+<div class="vi-demo-button">
   <vi-button @click="clickEvent">默认按钮</vi-button>
   <vi-button type="primary">主要按钮</vi-button>
   <vi-button type="success">成功按钮</vi-button>
@@ -27,7 +27,7 @@ export default {
   <vi-button type="danger">危险按钮</vi-button>
 </div>
 
-<div>
+<div class="vi-demo-button">
   <vi-button plain>朴素按钮</vi-button>
   <vi-button type="primary" plain>主要按钮</vi-button>
   <vi-button type="success" plain>成功按钮</vi-button>
@@ -36,14 +36,14 @@ export default {
   <vi-button type="danger" plain>危险按钮</vi-button>
 </div>
 
-<div>
+<div class="vi-demo-button">
   <vi-button>尺寸</vi-button>
   <vi-button size="large" type="success" >成功按钮</vi-button>
   <vi-button size="small" type="info">信息按钮</vi-button>
   <vi-button size="mini" type="warning">警告按钮</vi-button>
 </div>
 
-<div>
+<div class="vi-demo-button">
   <vi-button radius>圆角按钮</vi-button>
   <vi-button type="primary" radius>主要按钮</vi-button>
   <vi-button type="success" radius>成功按钮</vi-button>

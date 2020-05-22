@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     blur () {
-      !isEmptyObject(this.ViFormItemOptions) && (this.ViFormItemOptions.events('blur'))
+      
     },
     change (e) {
       if (this.isIndeterminate) {

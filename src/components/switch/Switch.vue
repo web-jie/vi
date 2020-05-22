@@ -3,7 +3,11 @@
     <span class="vi-switch_text_close" :class="textCloseClasses" v-if="inactiveText">
       <span>{{inactiveText}}</span>
     </span>
-    <div class="vi-switch_success" :class="classes" :style="styles"></div>
+    <div class="vi-switch_success" :class="classes" :style="styles">
+      <span class="vi-switch_loading" v-if="isbeforenFinish">
+        <vi-icon name="btn-loading" size="15" color="#fff"></vi-icon>
+      </span>
+    </div>
     <span class="vi-switch_text_open " :class="textOpenClasses" v-if="activeText">
       <span>{{activeText}}</span>
     </span>
@@ -61,7 +65,7 @@ export default {
   data () {
     return {
       // 钩子是否执行完
-      isbeforenFinish: false
+      isbeforenFinish: false,
     }
   },
   computed: {
@@ -84,9 +88,7 @@ export default {
     classes () {
       return [
         'vi-switch_input',
-        {
-          'vi-switch_checked': this.isChecked
-        }
+        this.isChecked ? 'vi-switch_checked' : 'vi-switch_close'
       ]
     },
     styles () {

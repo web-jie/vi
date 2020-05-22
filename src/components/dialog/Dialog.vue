@@ -134,12 +134,7 @@ export default {
   watch: {
     value (val) {
       if (val) {
-        this.$viMask()
-        this.isCloseEsc && this.keydown()
-        this.$VIELEMENT.setZIndex()
-        this.zIndex = this.$VIELEMENT.getZIndex()
-        this.$VIELEMENT.dialogList.push(this)
-        this.$emit('open')
+        this.vals()
       } else {
         this.$VIELEMENT.dialogList.pop()
         this.isCloseEsc && removeWindowsEvent(this, 'keydown')
@@ -151,6 +146,9 @@ export default {
     if (this.appendToBody) {
       document.querySelector('body').appendChild(this.$el)
     }
+    if (this.value) {
+      this.vals()
+    }
   },
   data () {
     return {
@@ -158,6 +156,14 @@ export default {
     }
   },
   methods: {
+    vals() {
+      this.$viMask()
+      this.isCloseEsc && this.keydown()
+      this.$VIELEMENT.setZIndex()
+      this.zIndex = this.$VIELEMENT.getZIndex()
+      this.$VIELEMENT.dialogList.push(this)
+      this.$emit('open')
+    },
     windowCallback(e) {
       this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].isCloseEsc && this.keydownFn(e)
     },
@@ -172,9 +178,6 @@ export default {
     },
     keydown (e) {
       bindWindowsEvent(this, 'keydown')
-      // bindWindowsEvent((e) => {
-      //   this.$VIELEMENT.dialogList[this.$VIELEMENT.dialogList.length - 1].isCloseEsc && this.keydownFn(e)
-      // }, 'dialog')
     },
     keydownFn (e) {
       if (e.keyCode === 27) {

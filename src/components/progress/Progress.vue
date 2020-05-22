@@ -28,7 +28,7 @@
         </span> -->
         <span class="vi-progress-circle-text"
               v-if="showText"
-              :style="{color:borderColor}"><b>{{newValue}}</b>
+              :style="{color:borderColor}"><b><slot>{{percent}}%</slot></b>
         </span>
         <div class="vi-circle-circle"
              v-style.circle="circleStyle"

@@ -129,7 +129,7 @@
 
   &_loading {  
     display: inline-block;
-    animation: animation-loading 1s infinite Linear;
+    animation: vi-animation-loading 1s infinite Linear;
   }
   &.is-loading {
     opacity: .8;
@@ -137,13 +137,3 @@
   }
 }
 
-
-@keyframes animation-loading {
-  from {
-    transform:rotateZ(0deg);
-  }
- 
-  to {
-    transform: rotateZ(360deg);
-  }
-}

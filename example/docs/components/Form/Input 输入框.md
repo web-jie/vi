@@ -89,7 +89,7 @@ export default {
 ### 尺寸
 ::: demo
 ``` html
-<div class="demo-input-size">
+<div class="demo-input-size vi-demo-input">
   <vi-input placeholder="请输入内容"></vi-input>
   <vi-input placeholder="请输入内容" size="large"></vi-input>
   <vi-input placeholder="请输入内容" size="small"></vi-input>
@@ -101,7 +101,7 @@ export default {
 ### 显示字数
 ::: demo
 ``` html
-<div>
+<div class="vi-demo-input">
   <vi-input placeholder="请输入内容" v-model="input3" show-word :maxlength="10" ></vi-input>
 </div>
 <div>
@@ -123,7 +123,7 @@ export default {
 ### 输入框头部尾部图标
 ::: demo
 ``` html
-<div>
+<div class="vi-demo-input">
   <vi-input placeholder="请输入内容" v-model="input6" prefix-icon="search"></vi-input>
 </div>
 <div>

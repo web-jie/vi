@@ -37,10 +37,8 @@
     },
     methods: {
       confirm() {
-        this.$message.success(' 单机了确定')
       },
       cancel() {
-        this.$message.info('单击了取消')
       },
       onShowAnimation(type) {
         this.type = type
