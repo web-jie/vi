@@ -1,5 +1,6 @@
 .vi-tabs {
   position: relative;
+  text-align: left;
   .vi-tabs_header {
     .vi-tabs_list {
       display: inline-block;
@@ -13,6 +14,7 @@
         cursor: pointer;
         user-select: none;
         box-sizing: border-box;
+        color: $color-primary-text;
         &.vi-tabs_list-nav-isactive {
           color: $color-primary
         }
